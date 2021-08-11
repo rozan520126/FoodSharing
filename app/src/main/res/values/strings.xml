@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FoodSharing</string>
+    <string name="textView_hint">想搜尋的食物種類</string>
+    <string name="img_button">TODO</string>
+</resources>

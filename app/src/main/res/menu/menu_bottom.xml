@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/p1_list"
+        android:title="List"
+        android:icon="@drawable/page_list"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/p2_shop"
+        android:title="Shop"
+        android:icon="@drawable/page_shop"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/p3_post"
+        android:title="Post"
+        android:icon="@drawable/page_post"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/p4_group"
+        android:title="Group"
+        android:icon="@drawable/page_group"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/p5_me"
+        android:title="Me"
+        android:icon="@drawable/page_me"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+
+
+</menu>
+
