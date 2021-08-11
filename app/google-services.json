@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "248204669835",
+    "project_id": "shringfoo",
+    "storage_bucket": "shringfoo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248204669835:android:ab9bd76ba63a7012cbf58e",
+        "android_client_info": {
+          "package_name": "com.example.foodsharing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "248204669835-d6tedmp5gogdj2oji3cdp98psck55i35.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodsharing",
+            "certificate_hash": "b626a35cceba5fe57c1bf8b7475e3c748dd3d970"
+          }
+        },
+        {
+          "client_id": "248204669835-b8dcjpavibdbeh8a019lmosbhlbe5gvj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiLajxMwYI118yL5SjkuzcCsXMRCVesSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "248204669835-b8dcjpavibdbeh8a019lmosbhlbe5gvj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
