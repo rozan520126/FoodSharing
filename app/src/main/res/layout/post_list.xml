@@ -40,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="001"
+            android:text="食物-名稱001"
             />
         <TextView
             android:layout_width="0dp"
