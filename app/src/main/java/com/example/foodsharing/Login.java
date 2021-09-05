@@ -30,7 +30,8 @@ import java.util.HashMap;
 
 public class Login extends AppCompatActivity {
 
-    EditText mEmialEt, mPasswordEt;
+    //init
+    EditText mEmailEt, mPasswordEt;
     TextView nothaveAccountTv, mRecoverTv;
     Button mLoginBtn;
 
@@ -45,8 +46,7 @@ public class Login extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-        //init
-        mEmialEt = findViewById(R.id.emaildEt);
+        mEmailEt = findViewById(R.id.emailEt);
         mPasswordEt = findViewById(R.id.passwordEt);
         nothaveAccountTv = findViewById(R.id.nothave_accountTv);
         mRecoverTv = findViewById(R.id.recoverTv);
@@ -55,11 +55,11 @@ public class Login extends AppCompatActivity {
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = mEmialEt.getText().toString();
+                String email = mEmailEt.getText().toString();
                 String password = mPasswordEt.getText().toString().trim();
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                    mEmialEt.setError("信箱格式錯誤!");
-                    mEmialEt.setFocusable(true);
+                    mEmailEt.setError("信箱格式錯誤!");
+                    mEmailEt.setFocusable(true);
                 }else {
                     loginUser(email,password);
                 }
@@ -102,7 +102,7 @@ public class Login extends AppCompatActivity {
         builder.setPositiveButton("重設", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String email = emailEt.getText().toString().trim();
+                String email = mEmailEt.getText().toString().trim();
                 beginRecover(email);
             }
         });
@@ -163,7 +163,7 @@ public class Login extends AppCompatActivity {
                                 reference.child(uid).setValue(hashMap);
                             }
 
-                            startActivity(new Intent(Login.this, Dashboard.class));
+                            startActivity(new Intent(Login.this, MainActivity.class));
                             finish();
                         }else {
                             pd.dismiss();

@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
 
     private BottomNavigationView mMainNav;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
 
     @Override
@@ -49,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
 //        recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
 //        recyclerView.setLayoutManager(mLayoutManager);
-//        setFragment(new Home());
-        startActivity(new Intent(MainActivity.this,AddPost.class));
+        setFragment(new Home());
 //        doData();
 //
 //        myAdapter = new MainActivity.MyAdapter();
@@ -64,15 +66,15 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.p1_list:
                     setFragment(new Home());
                     break;
-                case R.id.p2_shop:
-                    setFragment(new Home());
-                    break;
+//                case R.id.p2_shop:
+//                    setFragment(new Home());
+//                    break;
                 case R.id.p3_post:
                     startActivity(new Intent(MainActivity.this,AddPost.class));
                     break;
-                case R.id.p4_group:
-                    setFragment(new Home());
-                    break;
+//                case R.id.p4_group:
+//                    setFragment(new Home());
+//                    break;
                 case R.id.p5_me:
                     setFragment(new Home());
                     break;
@@ -145,7 +147,20 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frameLayout,fragment);
         fragmentTransaction.commit();
     }
-
+    @Override
+    protected void onStart(){
+        checkUserStatus();
+        super.onStart();
+    }
+    private void checkUserStatus(){
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null){
+//            mProfileTv.setText(user.getEmail());
+        }else {
+            startActivity(new Intent(MainActivity.this,Start.class));
+            finish();
+        }
+    }
 
 
 }

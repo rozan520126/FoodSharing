@@ -47,7 +47,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/registeBtn"
+        android:id="@+id/registerBtn"
         android:text="註冊"
         android:layout_below="@+id/passwordTIL"
         android:layout_centerHorizontal="true"
@@ -59,7 +59,7 @@
         android:id="@+id/have_accountTv"
         android:text="已經有帳號了嗎?點此登入!"
         android:textAlignment="center"
-        android:layout_below="@+id/registeBtn"
+        android:layout_below="@+id/registerBtn"
         android:layout_marginTop="30dp"/>
 
 

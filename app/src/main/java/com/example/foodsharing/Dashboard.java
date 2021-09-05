@@ -33,7 +33,7 @@ public class Dashboard extends AppCompatActivity {
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.p1_list:
-                        setFragment(new ProfileFragment());
+                        setFragment(new Home());
                         break;
                     case R.id.p2_shop:
                         setFragment(new Home());
