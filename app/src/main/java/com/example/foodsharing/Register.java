@@ -49,7 +49,7 @@ public class Register extends AppCompatActivity {
 //        //init
         mEmailEt = findViewById(R.id.emaildEt);
         mPasswordEt = findViewById(R.id.passwordEt);
-        mRegisterBtn = findViewById(R.id.registeBtn);
+        mRegisterBtn = findViewById(R.id.registerBtn);
         mHaveAccountTv = findViewById(R.id.have_accountTv);
 
         mAuth = FirebaseAuth.getInstance();
@@ -109,7 +109,7 @@ public class Register extends AppCompatActivity {
 
 
                             Toast.makeText(Register.this,"註冊中...\n"+user.getEmail(),Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Register.this, Dashboard.class));
+                            startActivity(new Intent(Register.this, Home.class));
                             finish();
                         }else {
                             progressDialog.dismiss();

@@ -1,5 +1,6 @@
 package com.example.foodsharing;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -84,6 +86,22 @@ public class Home extends Fragment {
                 Toast.makeText(getActivity(),""+error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void checkUserStatus(){
+        //get current user
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user!=null){
+
+        }else {
+            startActivity(new Intent(getActivity(),Start.class));
+            getActivity().finish();
+        }
+    }
+    @Override
+    public void onStart(){
+        checkUserStatus();
+        super.onStart();
     }
 
     private void searchPosts(String searchQuery){
