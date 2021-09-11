@@ -16,47 +16,47 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:id="@+id/emailTIL">
-        <EditText
+        android:layout_centerVertical="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/emaildEt"
             android:hint="Email"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:id="@+id/passwordTIL"
         android:layout_below="@+id/emailTIL"
         app:passwordToggleEnabled="true">
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/passwordEt"
             android:inputType="textPassword"
             android:hint="password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/registerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/registerBtn"
         android:text="註冊"
         android:layout_below="@+id/passwordTIL"
         android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"/>
 
     <TextView
+        android:id="@+id/have_accountTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/have_accountTv"
         android:text="已經有帳號了嗎?點此登入!"
         android:textAlignment="center"
         android:layout_below="@+id/registerBtn"

@@ -3,9 +3,6 @@ package models;
 public class ModelPost {
     String pId,pTitle,pQuan,pDes,pImage,pTime,uid,uEmail,uDp,uName;
 
-    public ModelPost(){
-
-    }
 
     public ModelPost(String pId, String pTitle, String pQuan, String pDes, String pImage, String pTime, String uid, String uEmail, String uDp, String uName) {
         this.pId = pId;

@@ -45,7 +45,7 @@ public class Dashboard extends AppCompatActivity {
                         setFragment(new Home());
                         break;
                     case R.id.p5_me:
-                        setFragment(new Home());
+                        setFragment(new ProfileFragment());
                         break;
                 }
             }

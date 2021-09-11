@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class Test extends AppCompatActivity {
     private TextView tvResult;
     private ImageView drawView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class Test extends AppCompatActivity {
 
         tvResult = (TextView) findViewById(R.id.tvResult);
         drawView = findViewById(R.id.my_image_view);
+
 
         ISNav.getInstance().init(new ImageLoader() {
             @Override

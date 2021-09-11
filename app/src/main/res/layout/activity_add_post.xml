@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="200dp"
+            android:maxHeight="250dp"
             android:background="@color/colorPrimary"/>
         <EditText
             android:id="@+id/pTitleEt"

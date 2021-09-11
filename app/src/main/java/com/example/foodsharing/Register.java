@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,7 +27,7 @@ import java.util.HashMap;
 
 public class Register extends AppCompatActivity {
 
-    EditText mEmailEt, mPasswordEt;
+    TextInputEditText mEmailEt, mPasswordEt;
     Button mRegisterBtn;
     TextView mHaveAccountTv;
 
@@ -47,7 +48,7 @@ public class Register extends AppCompatActivity {
 //        actionBar.setDisplayShowHomeEnabled(true);
 //
 //        //init
-        mEmailEt = findViewById(R.id.emaildEt);
+        mEmailEt = findViewById(R.id.emailEt);
         mPasswordEt = findViewById(R.id.passwordEt);
         mRegisterBtn = findViewById(R.id.registerBtn);
         mHaveAccountTv = findViewById(R.id.have_accountTv);
@@ -102,14 +103,16 @@ public class Register extends AppCompatActivity {
                             hashMap.put("name","");
                             hashMap.put("phone","");
                             hashMap.put("image","");
+                            //database instance
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            //path to store user data "Users"
                             DatabaseReference reference = database.getReference("Users");
                             reference.child(uid).setValue(hashMap);
 
 
 
                             Toast.makeText(Register.this,"註冊中...\n"+user.getEmail(),Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Register.this, Home.class));
+                            startActivity(new Intent(Register.this, MainActivity.class));
                             finish();
                         }else {
                             progressDialog.dismiss();

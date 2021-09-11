@@ -127,7 +127,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
             uNameTv = itemView.findViewById(R.id.uNameTv);
             pTimeTv = itemView.findViewById(R.id.pTimeTv);
             pTitleTv = itemView.findViewById(R.id.pTimeTv);
-            pQUanTv = itemView.findViewById(R.id.pQuantity);
+            pQUanTv = itemView.findViewById(R.id.pQuantityTv);
             pDes = itemView.findViewById(R.id.pDescriptionTv);
             moreBtn = itemView.findViewById(R.id.moreBtn);
         }

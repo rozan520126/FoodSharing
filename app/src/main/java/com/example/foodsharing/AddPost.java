@@ -9,9 +9,11 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -35,8 +38,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.yuyh.library.imgsel.ISNav;
+import com.yuyh.library.imgsel.common.ImageLoader;
+import com.yuyh.library.imgsel.config.ISCameraConfig;
+import com.yuyh.library.imgsel.config.ISListConfig;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class AddPost extends AppCompatActivity {
 
@@ -97,6 +105,8 @@ public class AddPost extends AppCompatActivity {
         imageIv = findViewById(R.id.pImageIv);
         uploadBtn = findViewById(R.id.pUploadBtn);
 
+        Glide.with(this).load(image_uri).into(imageIv);
+
 
         imageIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,15 +121,15 @@ public class AddPost extends AppCompatActivity {
                 String quantity = quantityEt.getText().toString().trim();
                 String des = desEt.getText().toString().trim();
                 if (TextUtils.isEmpty(title)){
-                    Toast.makeText(AddPost.this,"enter title",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddPost.this,"請輸入品項~",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(quantity)){
-                    Toast.makeText(AddPost.this,"enter quantity",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddPost.this,"請輸入數量~",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(des)){
-                    Toast.makeText(AddPost.this,"enter descruption",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddPost.this,"記得描述一下細節喔",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (image_uri == null){
@@ -329,4 +339,5 @@ public class AddPost extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }

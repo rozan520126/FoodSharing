@@ -60,6 +60,11 @@
             android:text="title"
             android:autoLink="all"/>
         <TextView
+            android:id="@+id/pQuantityTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6"/>
+        <TextView
             android:id="@+id/pDescriptionTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

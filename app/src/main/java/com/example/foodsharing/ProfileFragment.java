@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -47,6 +48,8 @@ import java.util.HashMap;
 
 public class ProfileFragment extends Fragment {
 
+
+    //firebase
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     FirebaseDatabase firebaseDatabase;
@@ -54,6 +57,7 @@ public class ProfileFragment extends Fragment {
     StorageReference storageReference;
     String storagePath = "Users_Profile_Imgs/";
 
+    //views
     ImageView myphoto;
     TextView nameTv,emailTv,phoneTv;
     FloatingActionButton fab;
@@ -121,6 +125,7 @@ public class ProfileFragment extends Fragment {
                     try {
                         Picasso.get().load(image).into(myphoto);
                     }catch (Exception e){
+                        //射程預設照案
                         Picasso.get().load(R.drawable.guava).into(myphoto);
                     }
                 }
@@ -135,8 +140,10 @@ public class ProfileFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showEditProfileDialog();
+//                showEditProfileDialog();
+                startActivity(new Intent(getActivity(),EditProfile.class));
             }
+
         });
 
         return view;

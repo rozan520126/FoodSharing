@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -50,15 +54,15 @@ public class Home extends Fragment {
         //recycler view and its properties
         recyclerView = view.findViewById(R.id.postsrecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        //show newest post first
+//        //show newest post first
         linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(true);
-        //set layout to recyclerview
+//        //set layout to recyclerview
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //init post list
         postList = new ArrayList<>();
-        loadPosts();
+//        loadPosts();
 
         return view;
     }
@@ -107,4 +111,5 @@ public class Home extends Fragment {
     private void searchPosts(String searchQuery){
 
     }
+
 }
