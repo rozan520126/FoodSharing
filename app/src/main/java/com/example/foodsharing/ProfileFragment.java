@@ -1,36 +1,20 @@
 package com.example.foodsharing;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,10 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import java.util.HashMap;
 
 
 public class ProfileFragment extends Fragment {
@@ -59,8 +40,7 @@ public class ProfileFragment extends Fragment {
 
     //views
     ImageView myphoto;
-    TextView nameTv,emailTv,phoneTv;
-    FloatingActionButton fab;
+    TextView nameTv,edit;
 
     ProgressDialog pd;
 
@@ -85,7 +65,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.profile01, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         //init firebase
         firebaseAuth = FirebaseAuth.getInstance();
@@ -100,9 +80,13 @@ public class ProfileFragment extends Fragment {
         //init view
         myphoto = view.findViewById(R.id.myphoto);
         nameTv = view.findViewById(R.id.nameTv);
-//        emailTv = view.findViewById(R.id.emailTv);
-//        phoneTv = view.findViewById(R.id.phoneTv);
-//        fab = view.findViewById(R.id.fab);
+        edit = view.findViewById(R.id.edit);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),EditProfile.class));
+            }
+        });
 
         pd = new ProgressDialog(getActivity());
 
@@ -114,14 +98,11 @@ public class ProfileFragment extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     //get data
                     String name = ""+ds.child("name").getValue();
-//                    String email = ""+ds.child("email").getValue();
-//                    String phone = ""+ds.child("phone").getValue();
                     String image = ""+ds.child("image").getValue();
 
                     //set data
                     nameTv.setText(name);
-//                    emailTv.setText(email);
-//                    phoneTv.setText(phone);
+
                     try {
                         Picasso.get().load(image).into(myphoto);
                     }catch (Exception e){
