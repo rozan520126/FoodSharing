@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -80,7 +81,9 @@ public class AddPost extends AppCompatActivity {
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         firebaseAuth = FirebaseAuth.getInstance();
+        checkUserStatus();
 
+        //取得會員資料
         userDbRef = FirebaseDatabase.getInstance().getReference("Users");
         Query query = userDbRef.orderByChild("email").equalTo(email);
         query.addValueEventListener(new ValueEventListener() {
@@ -157,7 +160,7 @@ public class AddPost extends AppCompatActivity {
                             if (uriTask.isSuccessful()){
                                 HashMap<Object,String> hashMap = new HashMap<>();
                                 hashMap.put("uid",uid);
-                                hashMap.put("uNmae",name);
+                                hashMap.put("uName",name);
                                 hashMap.put("uEmail",email);
                                 hashMap.put("uDp",dp);
                                 hashMap.put("pId",timeStamp);
@@ -196,7 +199,7 @@ public class AddPost extends AppCompatActivity {
         }else {
             HashMap<Object,String> hashMap = new HashMap<>();
             hashMap.put("uid",uid);
-            hashMap.put("uNmae",name);
+            hashMap.put("uName",name);
             hashMap.put("uEmail",email);
             hashMap.put("uDp",dp);
             hashMap.put("pId",timeStamp);
@@ -338,6 +341,16 @@ public class AddPost extends AppCompatActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+    private void checkUserStatus(){
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null){
+            email = user.getEmail();
+            uid = user.getUid();
+        }else {
+            startActivity(new Intent(this,Start.class));
+            finish();
+        }
     }
 
 }

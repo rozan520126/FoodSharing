@@ -40,6 +40,7 @@ public class Home extends Fragment {
     RecyclerView recyclerView;
     List<ModelPost> postList;
     AdapterPost adapterPost;
+    String email,uid;
 
 
     @Override
@@ -93,13 +94,12 @@ public class Home extends Fragment {
     }
 
     private void checkUserStatus(){
-        //get current user
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user!=null){
-
+        if (user != null){
+            email = user.getEmail();
+            uid = user.getUid();
         }else {
             startActivity(new Intent(getActivity(),Start.class));
-            getActivity().finish();
         }
     }
     @Override

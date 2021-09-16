@@ -68,7 +68,8 @@
             android:id="@+id/pDescriptionTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="description"/>
+            android:text="description"
+            android:autoLink="all"/>
         <ImageView
             android:id="@+id/pImage"
             android:layout_width="match_parent"
