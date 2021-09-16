@@ -38,8 +38,8 @@ public class EditProfile extends AppCompatActivity {
 
     //views
     ImageView myphoto;
-    EditText nameEd,emailEd,phoneEd;
-    TextView cancel,finish;
+    EditText nameEd,phoneEd;
+    TextView emailTv,cancel,finish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +53,10 @@ public class EditProfile extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference("Users");
 
         //init view
-        myphoto = findViewById(R.id.myphoto);
-        nameEd = findViewById(R.id.nameEd);
-        phoneEd = findViewById(R.id.phoneEd);
+        myphoto = (ImageView) findViewById(R.id.myphoto);
+        nameEd = (EditText) findViewById(R.id.nameEd);
+        phoneEd = (EditText) findViewById(R.id.phoneEd);
+        emailTv = (TextView)findViewById(R.id.emailTv);
 
         //button
         cancel = findViewById(R.id.cancel);
@@ -79,37 +80,35 @@ public class EditProfile extends AppCompatActivity {
 
 
         //載入原始資料
-//        Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
-//        query.addValueEventListener(new ValueEventListener(){
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot ds : dataSnapshot.getChildren()){
-//                    //get data
-//                    String name = ""+ds.child("name").getValue();
-//                    String email = ""+ds.child("email").getValue();
-//                    String phone = ""+ds.child("phone").getValue();
-//                    String image = ""+ds.child("image").getValue();
-//
-//                    //set data
-//                    nameEd.setText(name);
-//                    emailEd.setText(email);
-//                    phoneEd.setText(phone);
-//                    try {
-//                        Picasso.get().load(image).into(myphoto);
-//                    }catch (Exception e){
-//                        //射程預設照案
-//                        Picasso.get().load(R.drawable.guava).into(myphoto);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
+        query.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    //get data
+                    String name = ""+ds.child("name").getValue();
+                    String email = ""+ds.child("email").getValue();
+                    String phone = ""+ds.child("phone").getValue();
+                    String image = ""+ds.child("image").getValue();
 
+                    //set data
+                    nameEd.setText(name);
+                    emailTv.setText(email);
+                    phoneEd.setText(phone);
+                    try {
+                        Picasso.get().load(image).into(myphoto);
+                    }catch (Exception e){
+                        //射程預設照案
+                        Picasso.get().load(R.drawable.guava).into(myphoto);
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
@@ -130,8 +129,8 @@ public class EditProfile extends AppCompatActivity {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference("Users");
             myRef.child(uid).setValue(hashMap);
-            Toast.makeText(this, "更新中...", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(this, "更新成功!!", Toast.LENGTH_SHORT).show();
+            finish();
 
         }
     }
