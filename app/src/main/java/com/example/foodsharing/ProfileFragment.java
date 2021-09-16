@@ -40,7 +40,7 @@ public class ProfileFragment extends Fragment {
 
     //views
     ImageView myphoto;
-    TextView nameTv,edit;
+    TextView nameTv,introTv,edit;
 
     ProgressDialog pd;
 
@@ -80,6 +80,8 @@ public class ProfileFragment extends Fragment {
         //init view
         myphoto = view.findViewById(R.id.myphoto);
         nameTv = view.findViewById(R.id.nameTv);
+        introTv = view.findViewById(R.id.introTv);
+
         edit = view.findViewById(R.id.edit);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,9 +101,11 @@ public class ProfileFragment extends Fragment {
                     //get data
                     String name = ""+ds.child("name").getValue();
                     String image = ""+ds.child("image").getValue();
+                    String intro = ""+ds.child("intro").getValue();
 
                     //set data
                     nameTv.setText(name);
+                    introTv.setText(intro);
 
                     try {
                         Picasso.get().load(image).into(myphoto);

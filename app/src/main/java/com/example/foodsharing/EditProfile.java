@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,7 +39,7 @@ public class EditProfile extends AppCompatActivity {
 
     //views
     ImageView myphoto;
-    EditText nameEd,phoneEd;
+    EditText nameEd,phoneEd,introEd;
     TextView emailTv,cancel,finish;
 
     @Override
@@ -56,11 +57,12 @@ public class EditProfile extends AppCompatActivity {
         myphoto = (ImageView) findViewById(R.id.myphoto);
         nameEd = (EditText) findViewById(R.id.nameEd);
         phoneEd = (EditText) findViewById(R.id.phoneEd);
+        introEd = (EditText) findViewById(R.id.introEd);
         emailTv = (TextView)findViewById(R.id.emailTv);
 
         //button
-        cancel = findViewById(R.id.cancel);
-        finish = findViewById(R.id.finish);
+        cancel = (TextView) findViewById(R.id.cancel);
+        finish = (TextView) findViewById(R.id.finish);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,11 +92,13 @@ public class EditProfile extends AppCompatActivity {
                     String email = ""+ds.child("email").getValue();
                     String phone = ""+ds.child("phone").getValue();
                     String image = ""+ds.child("image").getValue();
+                    String intro = ""+ds.child("intro").getValue();
 
                     //set data
                     nameEd.setText(name);
                     emailTv.setText(email);
                     phoneEd.setText(phone);
+                    introEd.setText(intro);
                     try {
                         Picasso.get().load(image).into(myphoto);
                     }catch (Exception e){
@@ -117,6 +121,7 @@ public class EditProfile extends AppCompatActivity {
         String uid =user.getUid();
         String newName = nameEd.getText().toString();
         String newPhone = phoneEd.getText().toString();
+        String newIntro = introEd.getText().toString();
         if (newName.isEmpty() || newPhone.isEmpty()) {
             Toast.makeText(this, "資料不能空白喔", Toast.LENGTH_SHORT).show();
         }else {
@@ -126,6 +131,7 @@ public class EditProfile extends AppCompatActivity {
             hashMap.put("name",newName);
             hashMap.put("phone",newPhone);
             hashMap.put("image","");
+            hashMap.put("intro",newIntro);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference("Users");
             myRef.child(uid).setValue(hashMap);

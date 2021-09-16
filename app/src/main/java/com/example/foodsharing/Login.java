@@ -159,6 +159,7 @@ public class Login extends AppCompatActivity {
                                 hashMap.put("name","");
                                 hashMap.put("phone","");
                                 hashMap.put("image","");
+                                hashMap.put("intro","");
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference reference = database.getReference("Users");
                                 reference.child(uid).setValue(hashMap);

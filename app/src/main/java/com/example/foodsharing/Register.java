@@ -103,6 +103,7 @@ public class Register extends AppCompatActivity {
                             hashMap.put("name","");
                             hashMap.put("phone","");
                             hashMap.put("image","");
+                            hashMap.put("intro","");
                             //database instance
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             //path to store user data "Users"
