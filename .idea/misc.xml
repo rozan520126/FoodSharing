@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.21851851851851853" />
+        <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/drawable/arrow.xml" value="0.21851851851851853" />
+        <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21851851851851853" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/drawable/page_list.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/drawable/page_me.xml" value="0.21851851851851853" />
+        <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/drawable/page_post.xml" value="0.21851851851851853" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/activity_add_post.xml" value="0.18704710144927536" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/activity_chat.xml" value="0.18704710144927536" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/activity_dashboard.xml" value="0.1403985507246377" />
@@ -24,6 +29,7 @@
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/fragment_profile.xml" value="0.2" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/item.xml" value="0.14855072463768115" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/post_list.xml" value="0.21105072463768115" />
+        <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/profile01.xml" value="0.264" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/row_posts.xml" value="0.264" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/toolbar_bottom.xml" value="0.1956521739130435" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/toolbar_top.xml" value="0.1911231884057971" />
