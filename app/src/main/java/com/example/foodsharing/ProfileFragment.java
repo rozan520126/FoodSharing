@@ -125,29 +125,29 @@ public class ProfileFragment extends Fragment {
     }
 
 //    private boolean checkStoragePermission(){
-//        boolean result = ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//        boolean result = ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
 //                == (PackageManager.PERMISSION_GRANTED);
 //        return result;
 //    }
 //    private void requesetStoragePermission(){
-//        ActivityCompat.requestPermissions(getActivity(),storagePermissions,STORAGE_REQUEST_CODE);
+//        ActivityCompat.requestPermissions(this,storagePermissions,STORAGE_REQUEST_CODE);
 //    }
 //    private boolean checkCameraPermission(){
-//        boolean result = ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.CAMERA)
+//        boolean result = ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)
 //                == (PackageManager.PERMISSION_GRANTED);
 //
-//        boolean result2 = ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//        boolean result2 = ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
 //                == (PackageManager.PERMISSION_GRANTED);
 //        return result && result2;
 //    }
 //    private void requesetCameraPermission(){
-//        ActivityCompat.requestPermissions(getActivity(),cameraPermissions,CAMERA_REQUEST_CODE);
+//        ActivityCompat.requestPermissions(this,cameraPermissions,CAMERA_REQUEST_CODE);
 //    }
 //
 //
 //    private void showImagePicDialog() {
 //        String option[] = {"相機", "相簿"};
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //        builder.setTitle("選擇照片來源...");
 //        builder.setItems(option, new DialogInterface.OnClickListener() {
 //            @Override
@@ -180,7 +180,7 @@ public class ProfileFragment extends Fragment {
 //                    if (cameraAccepted && writeStorageAccepted){
 //                        pickFromCamera();
 //                    }else {
-//                        Toast.makeText(getActivity(),"請確認授權",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(this,"請確認授權",Toast.LENGTH_SHORT).show();
 //                    }
 //                }
 //            }
@@ -190,7 +190,7 @@ public class ProfileFragment extends Fragment {
 //                    if (writeStorageAccepted){
 //                        pickFromGallery();
 //                    }else {
-//                        Toast.makeText(getActivity(),"請確認授權",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(this,"請確認授權",Toast.LENGTH_SHORT).show();
 //                    }
 //                }
 //            }
@@ -235,19 +235,19 @@ public class ProfileFragment extends Fragment {
 //                                            @Override
 //                                            public void onSuccess(Void unused) {
 //                                                pd.dismiss();
-//                                                Toast.makeText(getActivity(),"照片上傳中",Toast.LENGTH_SHORT).show();
+//                                                Toast.makeText(this,"照片上傳中",Toast.LENGTH_SHORT).show();
 //                                            }
 //                                        })
 //                                        .addOnFailureListener(new OnFailureListener() {
 //                                            @Override
 //                                            public void onFailure(@NonNull Exception e) {
 //                                                pd.dismiss();
-//                                                Toast.makeText(getActivity(),"照片上傳失敗",Toast.LENGTH_SHORT).show();
+//                                                Toast.makeText(this,"照片上傳失敗",Toast.LENGTH_SHORT).show();
 //                                            };
 //                                        });
 //                            }else {
 //                                pd.dismiss();
-//                                Toast.makeText(getActivity(),"error",Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(this,"error",Toast.LENGTH_SHORT).show();
 //                            }
 //                        }
 //                    }
@@ -256,7 +256,7 @@ public class ProfileFragment extends Fragment {
 //                    @Override
 //                    public void onFailure(@NonNull Exception e) {
 //                        pd.dismiss();
-//                        Toast.makeText(getActivity(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(this,""+e.getMessage(),Toast.LENGTH_SHORT).show();
 //                    }
 //                });
 //    }
@@ -270,7 +270,7 @@ public class ProfileFragment extends Fragment {
 //        ContentValues values = new ContentValues();
 //        values.put(MediaStore.Images.Media.TITLE,"Temp Pic");
 //        values.put(MediaStore.Images.Media.DESCRIPTION,"Temp Description");
-//        image_uri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+//        image_uri = this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
 //
 //        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);

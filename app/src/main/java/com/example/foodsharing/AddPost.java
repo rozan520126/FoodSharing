@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -71,6 +73,8 @@ public class AddPost extends AppCompatActivity {
 
     Uri image_uri = null;
 
+    ProgressDialog pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +83,8 @@ public class AddPost extends AppCompatActivity {
         //init permission
         cameraPermissions = new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+        pd = new ProgressDialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
         checkUserStatus();
@@ -102,11 +108,11 @@ public class AddPost extends AppCompatActivity {
             }
         });
 
-        titleEt = findViewById(R.id.pTitleEt);
-        quantityEt = findViewById(R.id.pQuantity);
-        desEt = findViewById(R.id.pDescription);
-        imageIv = findViewById(R.id.pImageIv);
-        uploadBtn = findViewById(R.id.pUploadBtn);
+        titleEt = (EditText) findViewById(R.id.pTitleEt);
+        quantityEt = (EditText)findViewById(R.id.pQuantity);
+        desEt = (EditText)findViewById(R.id.pDescription);
+        imageIv = (ImageView) findViewById(R.id.pImageIv);
+        uploadBtn = (Button) findViewById(R.id.pUploadBtn);
 
         Glide.with(this).load(image_uri).into(imageIv);
 
@@ -145,6 +151,9 @@ public class AddPost extends AppCompatActivity {
     }
 
     private void uploadData(String title, String quantity, String des, String uri) {
+        pd.setMessage("發布中...");
+        pd.show();
+
         String timeStamp = String.valueOf(System.currentTimeMillis());
         String filePathAndName = "Posts/" + "post_" + timeStamp;
         if (!uri.equals("noImage")){
@@ -175,6 +184,7 @@ public class AddPost extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
+                                                pd.dismiss();
                                                 Toast.makeText(AddPost.this,"post publish",Toast.LENGTH_SHORT).show();
                                                 titleEt.setText("");
                                                 quantityEt.setText("");
@@ -185,6 +195,7 @@ public class AddPost extends AppCompatActivity {
                                         }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
+                                        pd.dismiss();
                                         Toast.makeText(AddPost.this,""+e.getMessage(),Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -214,6 +225,7 @@ public class AddPost extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
+                            pd.dismiss();
                             Toast.makeText(AddPost.this,"post publish",Toast.LENGTH_SHORT).show();
                             titleEt.setText("");
                             quantityEt.setText("");

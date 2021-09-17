@@ -1,11 +1,11 @@
 package com.example.foodsharing;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,8 +26,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
 
@@ -34,13 +42,19 @@ public class EditProfile extends AppCompatActivity {
     FirebaseUser user;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    StorageReference storageReference;
+
     String storagePath = "Users_Profile_Imgs/";
 
     //views
     ImageView myphoto;
     EditText nameEd,phoneEd,introEd;
     TextView emailTv,cancel,finish;
+
+    private Uri imageUri;
+    private String myUri = "" ;
+    private StorageTask uploadTask;
+    private StorageReference storageReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +66,8 @@ public class EditProfile extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
+        storageReference = FirebaseStorage.getInstance().getReference().child("ProfilePic");
+
 
         //init view
         myphoto = (ImageView) findViewById(R.id.myphoto);
@@ -63,6 +79,15 @@ public class EditProfile extends AppCompatActivity {
         //button
         cancel = (TextView) findViewById(R.id.cancel);
         finish = (TextView) findViewById(R.id.finish);
+
+
+        myphoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CropImage.activity().setAspectRatio(1,1).start(EditProfile.this);
+
+            }
+        });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,19 +150,69 @@ public class EditProfile extends AppCompatActivity {
         if (newName.isEmpty() || newPhone.isEmpty()) {
             Toast.makeText(this, "資料不能空白喔", Toast.LENGTH_SHORT).show();
         }else {
-            HashMap<Object,String> hashMap = new HashMap<>();
-            hashMap.put("email",email);
-            hashMap.put("uid",uid);
-            hashMap.put("name",newName);
-            hashMap.put("phone",newPhone);
-            hashMap.put("image","");
-            hashMap.put("intro",newIntro);
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("Users");
-            myRef.child(uid).setValue(hashMap);
-            Toast.makeText(this, "更新成功!!", Toast.LENGTH_SHORT).show();
-            finish();
+            if (imageUri != null) {
+                final StorageReference fileRef = storageReference
+                        .child(firebaseAuth.getCurrentUser().getUid()+".jpg");
+                uploadTask = fileRef.putFile(imageUri);
+                uploadTask.continueWithTask(new Continuation() {
+                    @Override
+                    public Object then(@NonNull Task task) throws Exception {
+                        if (!task.isSuccessful()){
+                            throw task.getException();
+                        }
+                        return fileRef.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()){
+                            Uri downloadUri = task.getResult();
+                            myUri = downloadUri.toString();
 
+                            HashMap<Object,String> hashMap = new HashMap<>();
+                            hashMap.put("email",email);
+                            hashMap.put("uid",uid);
+                            hashMap.put("name",newName);
+                            hashMap.put("phone",newPhone);
+                            hashMap.put("image",myUri);
+                            hashMap.put("intro",newIntro);
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = database.getReference("Users");
+                            myRef.child(uid).setValue(hashMap);
+                            Toast.makeText(EditProfile.this, "更新成功!!", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }
+                });
+
+            }else {
+                HashMap<Object,String> hashMap = new HashMap<>();
+                hashMap.put("email",email);
+                hashMap.put("uid",uid);
+                hashMap.put("name",newName);
+                hashMap.put("phone",newPhone);
+                hashMap.put("image","");
+                hashMap.put("intro",newIntro);
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("Users");
+                myRef.child(uid).setValue(hashMap);
+                Toast.makeText(this, "更新成功!!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null){
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            imageUri = result.getUri();
+
+            myphoto.setImageURI(imageUri);
+        }else {
+            Toast.makeText(this, "載入失敗", Toast.LENGTH_SHORT).show();
         }
     }
 }
