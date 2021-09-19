@@ -6,43 +6,244 @@
     android:layout_height="match_parent"
     tools:context=".AddPost">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
     <LinearLayout
+        android:id="@+id/content_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:paddingHorizontal="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/pImageIv"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@color/colorPrimary"/>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:src="@drawable/guava" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/guava2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/content_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/content_img">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="名稱"
+            android:textSize="24sp" />
+
         <EditText
             android:id="@+id/pTitleEt"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="輸入品項"
-            android:singleLine="true"/>
+            android:text="請輸入食品名稱"
+            android:textColor="@color/grey"
+            android:background="@color/bgColor"
+            android:padding="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/content_num"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/content_name"
+        app:layout_constraintTop_toBottomOf="@+id/content_img">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="數量"
+            android:textSize="24sp" />
+
         <EditText
             android:id="@+id/pQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="請輸入數量"
+            android:textColor="@color/grey"
+            android:background="@color/bgColor"
+            android:padding="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/validity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/content_name">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="有效期限"
+            android:textSize="24sp"
+            android:layout_marginBottom="6dp" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="輸入數量"
-            android:singleLine="true"/>
+            android:layout_marginBottom="8dp"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="有效期"
+                android:textColor="@color/grey"
+                android:background="@drawable/btn_shape01"
+                android:layout_marginRight="12dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="無法確認"
+                android:textColor="@color/grey"
+                android:background="@drawable/btn_shape01"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edit_validity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bgColor"
+            android:padding="8dp"
+            android:text="yyyy/mm/dd"
+            android:textColor="@color/grey"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/validity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="關於這些食物"
+            android:textSize="24sp"
+            android:layout_marginBottom="6dp" />
+
         <EditText
             android:id="@+id/pDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:hint="描述"
-            android:inputType="textCapSentences|textMultiLine"
-            android:minHeight="120dp"/>
-        <Button
-            android:id="@+id/pUploadBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="上傳"
-            android:layout_gravity="end"/>
-
+            android:text="描述一下您分享的食物，或是分享的理由，可以讓換取者了解也更安心 !"
+            android:textSize="20sp"
+            android:textColor="@color/grey"
+            android:background="@color/bgColor"
+            android:padding="12dp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/face_to_face"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="面交地點/時間"
+            android:textSize="24sp"
+            android:layout_marginBottom="6dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="請選擇地點"
+            android:textSize="20sp"
+            android:textColor="@color/grey"
+            android:background="@color/bgColor"
+            android:padding="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/off_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/face_to_face">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="設定貼文時效?"
+                android:textSize="24sp"
+                android:layout_marginRight="20dp"/>
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="32dp"/>
+
+        </LinearLayout>
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="若無設定，系統將在7天後下架"
+            android:textSize="12sp"
+            android:layout_marginBottom="6dp" />
+
+    </LinearLayout>
+    
+
+<!--    <Button-->
+<!--        android:layout_width="240dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="刊 登 !"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:background="@color/test02"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/off_time" />-->
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
