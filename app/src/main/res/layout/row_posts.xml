@@ -5,8 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="3dp"
     app:cardElevation="3dp"
-    app:cardUseCompatPadding="true"
-    >
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,8 +24,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:src="@drawable/guava"
-                android:layout_marginEnd="8dp"
-                />
+                android:layout_marginEnd="8dp" />
             <ImageView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -82,10 +80,6 @@
                     android:text="Name"
                     android:textColor="@color/black"
                     android:textSize="16sp"/>
-
-
-
-
         </LinearLayout>
 
 

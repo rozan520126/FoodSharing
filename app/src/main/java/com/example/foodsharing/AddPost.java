@@ -5,6 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -14,6 +17,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,13 +45,21 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.normal.TedPermission;
 import com.yuyh.library.imgsel.ISNav;
 import com.yuyh.library.imgsel.common.ImageLoader;
 import com.yuyh.library.imgsel.config.ISCameraConfig;
 import com.yuyh.library.imgsel.config.ISListConfig;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import adapters.AdapterPhoto;
+import gun0912.tedbottompicker.TedBottomPicker;
+import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
 
 public class AddPost extends AppCompatActivity {
 
@@ -67,6 +79,10 @@ public class AddPost extends AppCompatActivity {
     EditText titleEt, quantityEt, desEt;
     ImageView imageIv;
     Button uploadBtn;
+
+    private RecyclerView rcvPhoto;
+    private AdapterPhoto photoAdapter;
+
 
     //user info
     String name, email,uid,dp;
@@ -114,15 +130,23 @@ public class AddPost extends AppCompatActivity {
         imageIv = (ImageView) findViewById(R.id.pImageIv);
         uploadBtn = (Button) findViewById(R.id.pUploadBtn);
 
-        Glide.with(this).load(image_uri).into(imageIv);
+        rcvPhoto = (RecyclerView) findViewById(R.id.rcvPhoto);
+        photoAdapter = new AdapterPhoto(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        rcvPhoto.setLayoutManager(linearLayoutManager);
+        rcvPhoto.setFocusable(false);
+        rcvPhoto.setAdapter(photoAdapter);
+
 
 
         imageIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showImagePick();
+                requestPermission();
+//                showImagePick();
             }
         });
+
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,6 +172,42 @@ public class AddPost extends AppCompatActivity {
                 }
             }
         });
+    }
+//新方法
+    private void requestPermission() {
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                openBottomPicker();
+            }
+
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                Toast.makeText(AddPost.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+        TedPermission.create()
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .check();
+    }
+
+    private void openBottomPicker() {
+        TedBottomPicker.with(AddPost.this)
+                .setPeekHeight(1600)
+                .showTitle(false)
+                .setCompleteButtonText("Done")
+                .setEmptySelectionText("No Select")
+                .showMultiImage(new TedBottomSheetDialogFragment.OnMultiImageSelectedListener() {
+                    @Override
+                    public void onImagesSelected(List<Uri> uriList) {
+                        if (uriList != null && !uriList.isEmpty()){
+                            photoAdapter.setData(uriList);
+                        }
+                    }
+                });
+
     }
 
     private void uploadData(String title, String quantity, String des, String uri) {
@@ -242,118 +302,118 @@ public class AddPost extends AppCompatActivity {
         }
     }
 
-    private void showImagePick() {
-        String[] options = {"相機","相簿"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("選擇照片來源");
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == 0){
-                    if (!checkCameraPermission()){
-                        requestCameraPermission();
-                    }else {
-                        pickFromCamera();
-                    }
-                }
-                if (which == 1){
-                    if (!checkStoragePermission()){
-                        requestStoragePermission();
-                    }else {
-                        pickFromGallery();
-                    }
-                }
-            }
-        });
-        builder.create().show();
-    }
-
-    private void pickFromCamera() {
-        ContentValues cv = new ContentValues();
-        cv.put(MediaStore.Images.Media.TITLE,"Temp Pcik");
-        cv.put(MediaStore.Images.Media.DESCRIPTION,"Temp Descr");
-        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,cv);
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
-        startActivityForResult(intent,IMAGE_PICK_CAMERA_CODE);
-    }
-    private void pickFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent,IMAGE_PICK_GALLERY_CODE);
-    }
-
-    private boolean checkStoragePermission(){
-        boolean result = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)==(PackageManager.PERMISSION_GRANTED);
-        return result;
-    }
-    private void requestStoragePermission(){
-        ActivityCompat.requestPermissions(this,storagePermissions,STORAGE_REQUEST_CODE);
-    }
-
-    private boolean checkCameraPermission(){
-        boolean result = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.CAMERA)==(PackageManager.PERMISSION_GRANTED);
-        boolean result2 = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)==(PackageManager.PERMISSION_GRANTED);
-        return result && result2;
-    }
-    private void requestCameraPermission(){
-        ActivityCompat.requestPermissions(this,cameraPermissions,CAMERA_REQUEST_CODE);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return super.onSupportNavigateUp();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case CAMERA_REQUEST_CODE:{
-                if (grantResults.length>0){
-                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    if (cameraAccepted && storageAccepted){
-                        pickFromCamera();
-                    }else {
-                        Toast.makeText(this,"Camera & Storage both permission are neccessary",Toast.LENGTH_SHORT).show();
-                    }
-                }else {
-
-                }
-            }
-            break;
-            case STORAGE_REQUEST_CODE:{
-                if (grantResults.length > 0){
-                    boolean storageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    if (storageAccepted){
-                        pickFromGallery();
-                    }else {
-                        Toast.makeText(this,"Storage permissions neccessary",Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == RESULT_OK){
-            if (requestCode == IMAGE_PICK_GALLERY_CODE){
-                image_uri = data.getData();
-
-                imageIv.setImageURI(image_uri);
-            }
-            else if (requestCode == IMAGE_PICK_CAMERA_CODE){
-                imageIv.setImageURI(image_uri);
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+//    private void showImagePick() {
+//        String[] options = {"相機","相簿"};
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("選擇照片來源");
+//        builder.setItems(options, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                if (which == 0){
+//                    if (!checkCameraPermission()){
+//                        requestCameraPermission();
+//                    }else {
+//                        pickFromCamera();
+//                    }
+//                }
+//                if (which == 1){
+//                    if (!checkStoragePermission()){
+//                        requestStoragePermission();
+//                    }else {
+//                        pickFromGallery();
+//                    }
+//                }
+//            }
+//        });
+//        builder.create().show();
+//    }
+//
+//    private void pickFromCamera() {
+//        ContentValues cv = new ContentValues();
+//        cv.put(MediaStore.Images.Media.TITLE,"Temp Pcik");
+//        cv.put(MediaStore.Images.Media.DESCRIPTION,"Temp Descr");
+//        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,cv);
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
+//        startActivityForResult(intent,IMAGE_PICK_CAMERA_CODE);
+//    }
+//    private void pickFromGallery() {
+//        Intent intent = new Intent(Intent.ACTION_PICK);
+//        intent.setType("image/*");
+//        startActivityForResult(intent,IMAGE_PICK_GALLERY_CODE);
+//    }
+//
+//    private boolean checkStoragePermission(){
+//        boolean result = ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE)==(PackageManager.PERMISSION_GRANTED);
+//        return result;
+//    }
+//    private void requestStoragePermission(){
+//        ActivityCompat.requestPermissions(this,storagePermissions,STORAGE_REQUEST_CODE);
+//    }
+//
+//    private boolean checkCameraPermission(){
+//        boolean result = ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.CAMERA)==(PackageManager.PERMISSION_GRANTED);
+//        boolean result2 = ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE)==(PackageManager.PERMISSION_GRANTED);
+//        return result && result2;
+//    }
+//    private void requestCameraPermission(){
+//        ActivityCompat.requestPermissions(this,cameraPermissions,CAMERA_REQUEST_CODE);
+//    }
+//
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        onBackPressed();
+//        return super.onSupportNavigateUp();
+//    }
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        switch (requestCode){
+//            case CAMERA_REQUEST_CODE:{
+//                if (grantResults.length>0){
+//                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+//                    boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+//                    if (cameraAccepted && storageAccepted){
+//                        pickFromCamera();
+//                    }else {
+//                        Toast.makeText(this,"Camera & Storage both permission are neccessary",Toast.LENGTH_SHORT).show();
+//                    }
+//                }else {
+//
+//                }
+//            }
+//            break;
+//            case STORAGE_REQUEST_CODE:{
+//                if (grantResults.length > 0){
+//                    boolean storageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+//                    if (storageAccepted){
+//                        pickFromGallery();
+//                    }else {
+//                        Toast.makeText(this,"Storage permissions neccessary",Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        if (requestCode == RESULT_OK){
+//            if (requestCode == IMAGE_PICK_GALLERY_CODE){
+//                image_uri = data.getData();
+//
+//                imageIv.setImageURI(image_uri);
+//            }
+//            else if (requestCode == IMAGE_PICK_CAMERA_CODE){
+//                imageIv.setImageURI(image_uri);
+//            }
+//        }
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
     private void checkUserStatus(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){

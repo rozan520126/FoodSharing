@@ -64,6 +64,9 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
+    implementation 'gun0912.ted:tedbottompicker:2.0.1'
+    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.2.3'
+
 //    把 recyclerview 同步於遠端
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 }

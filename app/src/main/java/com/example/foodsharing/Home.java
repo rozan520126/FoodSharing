@@ -63,7 +63,7 @@ public class Home extends Fragment {
 
         //init post list
         postList = new ArrayList<>();
-        loadPosts();
+//        loadPosts();
 
         return view;
     }
@@ -77,12 +77,12 @@ public class Home extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList.clear();
                 for (DataSnapshot ds: snapshot.getChildren()){
-//                    ModelPost modelPost = ds.getValue(ModelPost.class);
-//                    postList.add(modelPost);
-//
-//                    adapterPost = new AdapterPost(this,postList);
-//
-//                    recyclerView.setAdapter(adapterPost);
+                    ModelPost modelPost = ds.getValue(ModelPost.class);
+                    postList.add(modelPost);
+
+                    adapterPost = new AdapterPost(getActivity(),postList);
+
+                    recyclerView.setAdapter(adapterPost);
 
                 }
             }
