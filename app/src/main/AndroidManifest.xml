@@ -14,6 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".postContent"
+            android:exported="true" />
         <activity
             android:name=".EditProfile"
             android:exported="true" />
@@ -44,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+            android:theme="@style/Base.Theme.AppCompat" />
     </application>
 
 </manifest>

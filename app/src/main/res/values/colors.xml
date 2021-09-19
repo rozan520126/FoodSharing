@@ -10,4 +10,6 @@
     <color name="colorPrimary">#FF9A3D</color>
     <color name="bgColor">#ECECEC</color>
     <color name="test02">#FFD983</color>
+
+    <color name="grey">#AAA6A6</color>
 </resources>
