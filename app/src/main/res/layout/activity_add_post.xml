@@ -36,7 +36,7 @@
 
         <LinearLayout
             android:id="@+id/content_name"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="24dp"
@@ -46,45 +46,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="名稱"
+                android:text="標題"
                 android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/pTitleEt"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="請輸入食品名稱"
                 android:background="@color/bgColor"
                 android:padding="8dp"/>
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/content_num"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/content_name"
-            app:layout_constraintTop_toBottomOf="@+id/content_img">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="數量"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/pQuantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="請輸入數量"
-                android:background="@color/bgColor"
-                android:padding="8dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/validity"
+            android:id="@+id/about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -97,58 +71,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="有效期限"
-                android:textSize="24sp"
-                android:layout_marginBottom="6dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                >
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:text="有效期"
-                    android:textColor="@color/grey"
-                    android:background="@drawable/btn_shape01"
-                    android:layout_marginRight="12dp"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:text="無法確認"
-                    android:textColor="@color/grey"
-                    android:background="@drawable/btn_shape01"/>
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/edit_validity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/bgColor"
-                android:padding="8dp"
-                android:hint="yyyy/mm/dd"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/about"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical"
-            android:paddingHorizontal="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/validity">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="關於這些食物"
+                android:text="關於這些食物..."
                 android:textSize="24sp"
                 android:layout_marginBottom="6dp" />
 
@@ -156,17 +79,17 @@
                 android:id="@+id/pDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="描述一下您分享的食物，或是分享的理由，可以讓換取者了解也更安心 !"
+                android:hint="說明這些食物的項目及數量，或任何其他細節(食物的品質、有效期限...)\n幫助換取者了解也更安心 !"
                 android:textSize="20sp"
                 android:background="@color/bgColor"
                 android:padding="12dp"/>
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/face_to_face"
+            android:id="@+id/face_to_face_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:orientation="vertical"
             android:paddingHorizontal="24dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -176,51 +99,83 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="面交地點/時間"
+                android:text="方便面交的時間"
                 android:textSize="24sp"
                 android:layout_marginBottom="6dp" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="請選擇地點"
                 android:textSize="20sp"
                 android:background="@color/bgColor"
-                android:padding="10dp"/>
+                android:padding="8dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/face_to_face_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/face_to_face_time">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="面交地點"
+                android:textSize="24sp"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:background="@color/bgColor"
+                android:padding="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="接受使用換食櫃"
+                    android:textSize="16sp"
+                    android:layout_marginRight="20dp"/>
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="32dp"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/off_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:orientation="vertical"
             android:paddingHorizontal="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/face_to_face">
+            app:layout_constraintTop_toBottomOf="@+id/face_to_face_location">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="設定貼文時效?"
+                    android:text="設定貼文時效"
                     android:textSize="24sp"
                     android:layout_marginRight="20dp"/>
-                <Button
-                    android:layout_width="30dp"
-                    android:layout_height="32dp"/>
 
-            </LinearLayout>
-            <TextView
-
+            <Spinner
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="若無設定，系統將在7天後下架"
-                android:textSize="12sp"
-                android:layout_marginBottom="6dp" />
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
@@ -233,6 +188,7 @@
                 android:textSize="20dp"
                 android:textColor="@color/white"
                 android:background="@color/test02"
+                android:layout_marginTop="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
