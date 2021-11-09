@@ -6,7 +6,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -33,9 +32,13 @@ android {
     }
     sourceSets {
         main {
-            res.srcDirs = ['src/main/res/layout/auth',
+            res.srcDirs = ['src/main/res/layout/add',
+                    'src/main/res/layout/list',
+                           'src/main/res/layout/me',
+                           'src/main/res/layout/toolBar',
+                           'src/main/res/layout/auth',
                            'src/main/res/layout',
-                           'src/main/res' ]
+                           'src/main/res']
         }
     }
 }
