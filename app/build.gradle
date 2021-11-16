@@ -32,8 +32,9 @@ android {
     }
     sourceSets {
         main {
-            res.srcDirs = ['src/main/res/layout/add',
-                    'src/main/res/layout/list',
+            res.srcDirs = ['src/main/res/layout/group',
+                           'src/main/res/layout/add',
+                           'src/main/res/layout/list',
                            'src/main/res/layout/me',
                            'src/main/res/layout/toolBar',
                            'src/main/res/layout/auth',
