@@ -128,7 +128,7 @@ public class AddPost extends AppCompatActivity {
         quantityEt = (EditText)findViewById(R.id.pQuantity);
         desEt = (EditText)findViewById(R.id.pDescription);
         imageIv = (ImageView) findViewById(R.id.pImageIv);
-//      uploadBtn = (Button) findViewById(R.id.pUploadBtn);
+        uploadBtn = (Button) findViewById(R.id.pUploadBtn);
 
         rcvPhoto = (RecyclerView) findViewById(R.id.rcvPhoto);
         photoAdapter = new AdapterPhoto(this);

@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp" />
+
         <EditText
             android:id="@+id/nameEd"
             android:layout_width="match_parent"
@@ -35,15 +36,22 @@
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
+            android:inputType="textPersonName"
             android:textSize="25sp" />
+
         <EditText
             android:id="@+id/phoneEd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="5dp"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:digits="1234567890"
+            android:imeOptions="actionNext"/>
         <EditText
             android:id="@+id/introEd"
+            android:inputType="textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

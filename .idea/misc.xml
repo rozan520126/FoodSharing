@@ -21,6 +21,7 @@
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/activity_start.xml" value="0.20923913043478262" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/activity_test.xml" value="0.1956521739130435" />
+        <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/add/layout/activity_add_post.xml" value="0.23369565217391305" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/auth/layout/activity_login.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/auth/layout/activity_register.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/auth/layout/activity_start.xml" value="0.13020833333333334" />
@@ -35,6 +36,9 @@
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/fragment_profile.xml" value="0.2" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/item.xml" value="0.14855072463768115" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/item_photo.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/list/layout/post_list.xml" value="0.23369565217391305" />
+        <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/me/layout/activity_edit_profile.xml" value="0.2296195652173913" />
+        <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/me/layout/fragment_profile.xml" value="0.2296195652173913" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/post_list.xml" value="0.21105072463768115" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/postlist_test_recyclerview.xml" value="0.14447463768115942" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/profile01.xml" value="0.264" />
