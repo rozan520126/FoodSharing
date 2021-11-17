@@ -71,7 +71,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
 
         //set user dp
         try{
-            Picasso.get().load(uDp).placeholder(R.drawable.ic_default_image).into(myHolder.uPicIv);
+            Picasso.get().load(uDp).placeholder(R.drawable.ic_default_image).into(myHolder.uImageIv);
         }
         catch (Exception e){
 
@@ -96,13 +96,13 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
 
         }
 
-        //handle button click
-        myHolder.moreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"More",Toast.LENGTH_SHORT).show();
-            }
-        });
+//        //handle button click
+//        myHolder.moreBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(context,"More",Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override
@@ -113,16 +113,15 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
     class MyHolder extends RecyclerView.ViewHolder{
 
         //view from row_post
-        ImageView uPicIv,pImageIv;
+        ImageView uImageIv,pImageIv;
         TextView uNameTv,pTimeTv,pTitleTv,pQUanTv,pDes;
-        ImageButton moreBtn;
 
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
 
             //init view
-            uPicIv = itemView.findViewById(R.id.uPicIv);
+            uImageIv = itemView.findViewById(R.id.uPicIv);
             pImageIv = itemView.findViewById(R.id.pImageIv);
             uNameTv = itemView.findViewById(R.id.uNameTv);
 

@@ -1,6 +1,7 @@
 package com.example.foodsharing;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,10 +39,12 @@ import models.ModelPost;
 public class Home extends Fragment {
 
     FirebaseAuth firebaseAuth;
+    FirebaseUser user;
     RecyclerView recyclerView;
     List<ModelPost> postList;
     AdapterPost adapterPost;
     String email,uid;
+
 
 
     @Override
@@ -63,7 +67,7 @@ public class Home extends Fragment {
 
         //init post list
         postList = new ArrayList<>();
-//        loadPosts();
+        loadPosts();
 
         return view;
     }
