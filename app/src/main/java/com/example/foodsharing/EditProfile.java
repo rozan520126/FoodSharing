@@ -106,7 +106,7 @@ public class EditProfile extends AppCompatActivity {
         });
 
 
-        //載入原始資料
+        //顯示原始資料
         Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
         query.addValueEventListener(new ValueEventListener(){
             @Override
@@ -124,6 +124,7 @@ public class EditProfile extends AppCompatActivity {
                     emailTv.setText(email);
                     phoneEd.setText(phone);
                     introEd.setText(intro);
+                    imageUri = Uri.parse(image);
                     try {
                         Picasso.get().load(image).into(myphoto);
                     }catch (Exception e){
@@ -209,7 +210,6 @@ public class EditProfile extends AppCompatActivity {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
-
             myphoto.setImageURI(imageUri);
         }else {
             Toast.makeText(this, "載入失敗", Toast.LENGTH_SHORT).show();
