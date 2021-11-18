@@ -1,7 +1,6 @@
 package com.example.foodsharing;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,38 +11,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 import adapters.AdapterPost;
-import models.ModelPost;
+import models.Post;
 
 
 public class Home extends Fragment {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
+
     RecyclerView recyclerView;
-    List<ModelPost> postList;
     AdapterPost adapterPost;
+    ArrayList<Post> postList;
     String email,uid;
+
 
 
 
@@ -52,7 +47,7 @@ public class Home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
-
+        System.out.print("88888");
         //init
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -67,30 +62,26 @@ public class Home extends Fragment {
 
         //init post list
         postList = new ArrayList<>();
+        adapterPost = new AdapterPost(getActivity(),postList);
+        recyclerView.setAdapter(adapterPost);
         loadPosts();
 
         return view;
     }
 
     private void loadPosts() {
-        //path of all posts
+//        path of all posts
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
         //get all data from this ref
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                postList.clear();
                 for (DataSnapshot ds: snapshot.getChildren()){
-                    ModelPost modelPost = ds.getValue(ModelPost.class);
-                    postList.add(modelPost);
 
-                    adapterPost = new AdapterPost(getActivity(),postList);
-
-                    recyclerView.setAdapter(adapterPost);
-
+                    Post post = ds.getValue(Post.class);
+                    postList.add(post);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getActivity(),""+error.getMessage(),Toast.LENGTH_SHORT).show();

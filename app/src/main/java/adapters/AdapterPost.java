@@ -5,10 +5,8 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,14 +19,14 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import models.ModelPost;
+import models.Post;
 
 public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
 
     Context context;
-    List<ModelPost> postList;
+    List<Post> postList;
 
-    public AdapterPost(Context context, List<ModelPost> postList) {
+    public AdapterPost(Context context, List<Post> postList) {
         this.context = context;
         this.postList = postList;
     }
@@ -58,16 +56,16 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
         String pTimeStamp = postList.get(i).getpTime();
 
         //convert timestamp to dd/mm/yyyy hh:mm am/pm
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        calendar.setTimeInMillis(Long.parseLong(pTimeStamp));
-        String pTime = DateFormat.format("dd/MM/yyyy hh:mm aa",calendar).toString();
+//        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+//        calendar.setTimeInMillis(Long.parseLong(pTimeStamp));
+//        String pTime = DateFormat.format("dd/MM/yyyy hh:mm aa",calendar).toString();
 
         //set data
         myHolder.uNameTv.setText(uName);
-        myHolder.pTimeTv.setText(pTime);
+//        myHolder.pTimeTv.setText(pTime);
         myHolder.pTitleTv.setText(pTitle);
         myHolder.pQUanTv.setText(pQuantity);
-        myHolder.pDes.setText(pDes);
+//        myHolder.pDes.setText(pDes);
 
         //set user dp
         try{
@@ -110,21 +108,18 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
         return postList.size();
     }
 
-    class MyHolder extends RecyclerView.ViewHolder{
+    class  MyHolder extends RecyclerView.ViewHolder{
 
         //view from row_post
         ImageView uImageIv,pImageIv;
         TextView uNameTv,pTimeTv,pTitleTv,pQUanTv,pDes;
 
-
         public MyHolder(@NonNull View itemView) {
             super(itemView);
-
             //init view
             uImageIv = itemView.findViewById(R.id.uPicIv);
             pImageIv = itemView.findViewById(R.id.pImageIv);
             uNameTv = itemView.findViewById(R.id.uNameTv);
-
             pTitleTv = itemView.findViewById(R.id.pTitleTv);
             pQUanTv = itemView.findViewById(R.id.pQuantityTv);
         }

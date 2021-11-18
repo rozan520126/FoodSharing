@@ -125,7 +125,7 @@ public class AddPost extends AppCompatActivity {
         });
 
         titleEt = (EditText) findViewById(R.id.pTitleEt);
-        quantityEt = (EditText)findViewById(R.id.pQuantity);
+//        quantityEt = (EditText)findViewById(R.id.pQuantity);
         desEt = (EditText)findViewById(R.id.pDescription);
         imageIv = (ImageView) findViewById(R.id.pImageIv);
         uploadBtn = (Button) findViewById(R.id.pUploadBtn);
@@ -151,24 +151,25 @@ public class AddPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String title = titleEt.getText().toString().trim();
-                String quantity = quantityEt.getText().toString().trim();
+//                String quantity = quantityEt.getText().toString().trim();
                 String des = desEt.getText().toString().trim();
                 if (TextUtils.isEmpty(title)){
                     Toast.makeText(AddPost.this,"請輸入品項~",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(quantity)){
-                    Toast.makeText(AddPost.this,"請輸入數量~",Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (TextUtils.isEmpty(quantity)){
+//                    Toast.makeText(AddPost.this,"請輸入數量~",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 if (TextUtils.isEmpty(des)){
                     Toast.makeText(AddPost.this,"記得描述一下細節喔",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (image_uri == null){
-                    uploadData(title,quantity,des,"noImage");
+                    uploadData(title,des,"noImage");
+                    System.out.print("nooooo!");
                 }else {
-                    uploadData(title,quantity,des,String.valueOf(image_uri));
+                    uploadData(title,des,String.valueOf(image_uri));
                 }
             }
         });
@@ -210,7 +211,7 @@ public class AddPost extends AppCompatActivity {
 
     }
 
-    private void uploadData(String title, String quantity, String des, String uri) {
+    private void uploadData(String title,  String des, String uri) {
         pd.setMessage("發布中...");
         pd.show();
 
@@ -234,7 +235,7 @@ public class AddPost extends AppCompatActivity {
                                 hashMap.put("uDp",dp);
                                 hashMap.put("pId",timeStamp);
                                 hashMap.put("pTitle",title);
-                                hashMap.put("pQu",quantity);
+//                                hashMap.put("pQu",quantity);
                                 hashMap.put("pDes",des);
                                 hashMap.put("pImage",downloadUri);
                                 hashMap.put("pTime ",timeStamp);
@@ -247,7 +248,7 @@ public class AddPost extends AppCompatActivity {
                                                 pd.dismiss();
                                                 Toast.makeText(AddPost.this,"post publish",Toast.LENGTH_SHORT).show();
                                                 titleEt.setText("");
-                                                quantityEt.setText("");
+//                                                quantityEt.setText("");
                                                 desEt.setText("");
                                                 imageIv.setImageURI(null);
                                                 image_uri = null;
@@ -275,7 +276,7 @@ public class AddPost extends AppCompatActivity {
             hashMap.put("uDp",dp);
             hashMap.put("pId",timeStamp);
             hashMap.put("pTitle",title);
-            hashMap.put("pQu",quantity);
+//            hashMap.put("pQu",quantity);
             hashMap.put("pDes",des);
             hashMap.put("pImage","noImage");
             hashMap.put("pTime ",timeStamp);
@@ -288,7 +289,7 @@ public class AddPost extends AppCompatActivity {
                             pd.dismiss();
                             Toast.makeText(AddPost.this,"post publish",Toast.LENGTH_SHORT).show();
                             titleEt.setText("");
-                            quantityEt.setText("");
+//                            quantityEt.setText("");
                             desEt.setText("");
                             imageIv.setImageURI(null);
                             image_uri = null;
