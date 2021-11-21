@@ -40,30 +40,49 @@
             android:layout_height="wrap_content"
             android:textSize="32sp"
             android:textStyle="bold"
-            android:text="title "
+            android:hint="芭樂"
             android:autoLink="all"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="X"/>
-        <TextView
-            android:id="@+id/pQuantityTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:text=" 6"/>
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detail_des"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_num">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="2天前買的芭樂，但拔了智齒咬不動"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/context_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#777"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_des"
+        android:layout_marginTop="12dp"/>
+
+
 
     <LinearLayout
         android:id="@+id/poster"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_num">
+        app:layout_constraintTop_toBottomOf="@+id/context_line">
 
         <com.blogspot.atifsoftwares.circularimageview.CircularImageView
             android:id="@+id/uPicIv"
@@ -77,11 +96,14 @@
             android:id="@+id/uNameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:layout_gravity="center_vertical"
+            android:hint="小陳叔叔"
             android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/detail_validity"
@@ -96,42 +118,39 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/v_time" />
+            android:background="none"
+            android:src="@drawable/v_time"
+            android:paddingRight="12dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" 貼文將在 小時後過期"
-            android:textColor="@color/black"
+            android:hint="假日都可以"
             android:textSize="18sp"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/detail_des"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_validity">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/des_txt" />
-    </LinearLayout>
     <LinearLayout
         android:id="@+id/detail_loc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_des">
+        app:layout_constraintTop_toBottomOf="@+id/detail_validity">
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/v_location" />
+            android:background="none"
+            android:src="@drawable/v_location"
+            android:paddingRight="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="社區門口"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
