@@ -16,9 +16,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -66,6 +71,9 @@ public class AddPost extends AppCompatActivity {
 
     private RecyclerView rcvPhoto;
     private AdapterPhoto photoAdapter;
+    private Spinner timeSpinner;
+    private ArrayAdapter timeArrayAdapter;
+
 
 
     //user info
@@ -162,6 +170,12 @@ public class AddPost extends AppCompatActivity {
                 }
             }
         });
+
+        timeSpinner = (Spinner) findViewById(R.id.spinner_time);
+        timeArrayAdapter = ArrayAdapter.createFromResource(this,R.array.time_agreement_array, R.layout.support_simple_spinner_dropdown_item);
+        timeSpinner.setAdapter(timeArrayAdapter);
+
+
     }
 //新方法
     private void requestPermission() {
@@ -296,6 +310,14 @@ public class AddPost extends AppCompatActivity {
         }
     }
 
+
+
+//    timespinner
+//    timeSpinner = (Spinner) findViewById(R.id.spinner_time);
+//    ArrayAdapter<CharSequence> timeArrayAdapter = ArrayAdapter.createFromResource(this,R.array.time_agreement_array, R.layout.support_simple_spinner_dropdown_item);
+//
+
+
 //    private void showImagePick() {
 //        String[] options = {"相機","相簿"};
 //        AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -418,5 +440,6 @@ public class AddPost extends AppCompatActivity {
             finish();
         }
     }
+
 
 }

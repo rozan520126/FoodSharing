@@ -146,13 +146,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="接受使用換食櫃"
-                    android:textSize="16sp"
-                    android:layout_marginRight="20dp"/>
+                    android:textSize="16sp" />
 
                 <CheckBox
                     android:id="@+id/useBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
 
             </LinearLayout>
 
@@ -177,6 +178,7 @@
                     android:layout_marginRight="20dp"/>
 
             <Spinner
+                android:id="@+id/spinner_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

@@ -20,6 +20,9 @@
             android:enabled="true"
             android:exported="false"/>
         <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditProfile"
             android:exported="true" />
         <activity
@@ -40,6 +43,7 @@
         <activity
             android:name=".Test"
             android:exported="true" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,7 +51,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
     </application>
 

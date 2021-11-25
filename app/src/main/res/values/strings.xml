@@ -4,6 +4,25 @@
     <string name="img_button">TODO</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+<<<<<<< HEAD
     <string name="name">Name</string>
     <string name="title">Title</string>
+=======
+    <string-array name="time_agreement_array">
+        <item>1hr</item>
+        <item>2hr</item>
+        <item>3hr</item>
+        <item>4hr</item>
+        <item>6hr</item>
+        <item>8hr</item>
+        <item>1day</item>
+        <item>2days</item>
+        <item>3days</item>
+        <item>3days</item>
+        <item>4days</item>
+        <item>5days</item>
+        <item>6days</item>
+        <item>7days</item>
+    </string-array>
+>>>>>>> b9aeb0e46d239ba5a46d66beb9068b8cc2bf814b
 </resources>
