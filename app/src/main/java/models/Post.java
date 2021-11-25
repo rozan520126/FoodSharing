@@ -1,21 +1,21 @@
 package models;
 
 public class Post {
-    String pId,pTitle,pQu,pDes,pImage,pTime,uid,uEmail,uDp,uName;
+    String pId,pTitle,pLocation,pDes,pdaytime,pImage,pTime,uid,uName,uImage;
 
     public Post() {}
 
-    public Post(String pDes,String pId,String pImage,String pQu ,String pTime,String pTitle, String uDp,String uEmail, String uName, String uid) {
+    public Post(String pDes,String pId,String pImage,String pLocation ,String pTime,String pTitle,String pdaytime, String uid,String uName,String uImage) {
         this.pId = pId;
         this.pTitle = pTitle;
-        this.pQu = pQu;
         this.pDes = pDes;
+        this.pLocation = pLocation;
+        this.pdaytime = pdaytime;
         this.pImage = pImage;
         this.pTime = pTime;
         this.uid = uid;
-        this.uEmail = uEmail;
-        this.uDp = uDp;
         this.uName = uName;
+        this.uImage = uImage;
     }
 
     public String getpId() {
@@ -34,12 +34,20 @@ public class Post {
         this.pTitle = pTitle;
     }
 
-    public String getpQuan() {
-        return pQu;
+    public String getpLocation() {
+        return pLocation;
     }
 
-    public void setpQuan(String pQu) {
-        this.pQu = pQu;
+    public void setpLocation(String pLocation) {
+        this.pLocation = pLocation;
+    }
+
+    public String getpdaytime() {
+        return pdaytime;
+    }
+
+    public void setpdaytime(String pdaytime) {
+        this.pdaytime = pdaytime;
     }
 
     public String getpDes() {
@@ -74,22 +82,6 @@ public class Post {
         this.uid = uid;
     }
 
-    public String getuEmail() {
-        return uEmail;
-    }
-
-    public void setuEmail(String uEmail) {
-        this.uEmail = uEmail;
-    }
-
-    public String getuDp() {
-        return uDp;
-    }
-
-    public void setuDp(String uDp) {
-        this.uDp = uDp;
-    }
-
     public String getuName() {
         return uName;
     }
@@ -97,4 +89,11 @@ public class Post {
     public void setuName(String uName) {
         this.uName = uName;
     }
+
+    public String getuImage() { return uImage;}
+
+    public void setuImage(String uImage) {
+        this.uImage = uImage;
+    }
+
 }

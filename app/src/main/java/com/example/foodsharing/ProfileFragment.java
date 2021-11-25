@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -107,11 +108,17 @@ public class ProfileFragment extends Fragment {
                     nameTv.setText(name);
                     introTv.setText(intro);
 
+
+
                     try {
-                        Picasso.get().load(image).into(myphoto);
+                        Glide.with(getActivity())
+                                .load(image)
+                                .into(myphoto);
                     }catch (Exception e){
                         //射程預設照案
-                        Picasso.get().load(R.drawable.guava).into(myphoto);
+                        Glide.with(getActivity())
+                                .load(R.drawable.ic_default_image)
+                                .into(myphoto);
                     }
                 }
             }

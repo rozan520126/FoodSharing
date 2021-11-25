@@ -1,36 +1,26 @@
 package com.example.foodsharing;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
-import android.app.AlertDialog;
+
 import android.app.ProgressDialog;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Color;
+
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -47,13 +37,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
-import com.yuyh.library.imgsel.ISNav;
-import com.yuyh.library.imgsel.common.ImageLoader;
-import com.yuyh.library.imgsel.config.ISCameraConfig;
-import com.yuyh.library.imgsel.config.ISListConfig;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -76,7 +60,7 @@ public class AddPost extends AppCompatActivity {
     String[] storagePermissions;
 
     //view
-    EditText titleEt, quantityEt, desEt;
+    EditText titleEt, desEt, daytimeEt, locationEt;
     ImageView imageIv;
     Button uploadBtn;
 
@@ -85,9 +69,11 @@ public class AddPost extends AppCompatActivity {
 
 
     //user info
-    String name, email,uid,dp;
+    String uid,uName,uImage ,email;
 
     Uri image_uri = null;
+
+//    private ArrayList<Uri> imageUris = null;
 
     ProgressDialog pd;
 
@@ -112,12 +98,10 @@ public class AddPost extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds: snapshot.getChildren()){
-                    name = "" + ds.child("name").getValue();
-                    email = "" + ds.child("email").getValue();
-                    dp = "" + ds.child("image").getValue();
+                    uName = "" + ds.child("name").getValue();
+                    uImage = "" + ds.child("image").getValue();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -125,8 +109,9 @@ public class AddPost extends AppCompatActivity {
         });
 
         titleEt = (EditText) findViewById(R.id.pTitleEt);
-//        quantityEt = (EditText)findViewById(R.id.pQuantity);
         desEt = (EditText)findViewById(R.id.pDescription);
+        daytimeEt = (EditText)findViewById(R.id.pTime);
+        locationEt = (EditText)findViewById(R.id.pLocation);
         imageIv = (ImageView) findViewById(R.id.pImageIv);
         uploadBtn = (Button) findViewById(R.id.pUploadBtn);
 
@@ -136,8 +121,6 @@ public class AddPost extends AppCompatActivity {
         rcvPhoto.setLayoutManager(linearLayoutManager);
         rcvPhoto.setFocusable(false);
         rcvPhoto.setAdapter(photoAdapter);
-
-
 
         imageIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,25 +134,31 @@ public class AddPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String title = titleEt.getText().toString().trim();
-//                String quantity = quantityEt.getText().toString().trim();
                 String des = desEt.getText().toString().trim();
+                String daytime = daytimeEt.getText().toString().trim();
+                String location = locationEt.getText().toString().trim();
                 if (TextUtils.isEmpty(title)){
-                    Toast.makeText(AddPost.this,"請輸入品項~",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddPost.this,"請輸入標題!",Toast.LENGTH_SHORT).show();
                     return;
                 }
-//                if (TextUtils.isEmpty(quantity)){
-//                    Toast.makeText(AddPost.this,"請輸入數量~",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
                 if (TextUtils.isEmpty(des)){
                     Toast.makeText(AddPost.this,"記得描述一下細節喔",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (TextUtils.isEmpty(daytime)){
+                    Toast.makeText(AddPost.this,"記得寫時間喔",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(location)){
+                    Toast.makeText(AddPost.this,"要在那裡面交呢",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (image_uri == null){
-                    uploadData(title,des,"noImage");
-                    System.out.print("nooooo!");
-                }else {
-                    uploadData(title,des,String.valueOf(image_uri));
+                    uploadData(title,des,daytime,location,"noImage");
+                }
+                else {
+                    uploadData(title,des,daytime,location,String.valueOf(image_uri));
                 }
             }
         });
@@ -211,7 +200,7 @@ public class AddPost extends AppCompatActivity {
 
     }
 
-    private void uploadData(String title,  String des, String uri) {
+    private void uploadData(String title, String des,String daytime,String location , String uri) {
         pd.setMessage("發布中...");
         pd.show();
 
@@ -230,15 +219,15 @@ public class AddPost extends AppCompatActivity {
                             if (uriTask.isSuccessful()){
                                 HashMap<Object,String> hashMap = new HashMap<>();
                                 hashMap.put("uid",uid);
-                                hashMap.put("uName",name);
-                                hashMap.put("uEmail",email);
-                                hashMap.put("uDp",dp);
+                                hashMap.put("uName",uName);
+                                hashMap.put("uImage",uImage);
                                 hashMap.put("pId",timeStamp);
                                 hashMap.put("pTitle",title);
-//                                hashMap.put("pQu",quantity);
                                 hashMap.put("pDes",des);
+                                hashMap.put("pdaytime",daytime);
+                                hashMap.put("pLocation",location);
                                 hashMap.put("pImage",downloadUri);
-                                hashMap.put("pTime ",timeStamp);
+                                hashMap.put("pTime",timeStamp);
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
                                 ref.child(timeStamp).setValue(hashMap)
@@ -248,10 +237,12 @@ public class AddPost extends AppCompatActivity {
                                                 pd.dismiss();
                                                 Toast.makeText(AddPost.this,"post publish",Toast.LENGTH_SHORT).show();
                                                 titleEt.setText("");
-//                                                quantityEt.setText("");
                                                 desEt.setText("");
+                                                daytimeEt.setText("");
+                                                locationEt.setText("");
                                                 imageIv.setImageURI(null);
                                                 image_uri = null;
+                                                startActivity(new Intent(AddPost.this,MainActivity.class));
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -271,15 +262,15 @@ public class AddPost extends AppCompatActivity {
         }else {
             HashMap<Object,String> hashMap = new HashMap<>();
             hashMap.put("uid",uid);
-            hashMap.put("uName",name);
-            hashMap.put("uEmail",email);
-            hashMap.put("uDp",dp);
+            hashMap.put("uName",uName);
+            hashMap.put("uImage",uImage);
             hashMap.put("pId",timeStamp);
             hashMap.put("pTitle",title);
-//            hashMap.put("pQu",quantity);
             hashMap.put("pDes",des);
+            hashMap.put("pdaytime",daytime);
+            hashMap.put("pLocation",location);
             hashMap.put("pImage","noImage");
-            hashMap.put("pTime ",timeStamp);
+            hashMap.put("pTime",timeStamp);
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
             ref.child(timeStamp).setValue(hashMap)
@@ -289,10 +280,12 @@ public class AddPost extends AppCompatActivity {
                             pd.dismiss();
                             Toast.makeText(AddPost.this,"post publish",Toast.LENGTH_SHORT).show();
                             titleEt.setText("");
-//                            quantityEt.setText("");
                             desEt.setText("");
+                            daytimeEt.setText("");
+                            locationEt.setText("");
                             imageIv.setImageURI(null);
                             image_uri = null;
+                            startActivity(new Intent(AddPost.this,MainActivity.class));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override

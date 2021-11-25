@@ -20,10 +20,11 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/pImage"
+                android:id="@+id/pImageIv"
+                android:src="@drawable/guava"
+                android:contentDescription="@string/all_images"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/guava"
                 android:layout_marginEnd="8dp"
                 />
 <!--            <ImageView-->
@@ -43,20 +44,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:text="title "
+                android:text="@string/title"
                 android:autoLink="all"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="X"/>
-            <TextView
-                android:id="@+id/pQuantityTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:text=" 6"/>
         </LinearLayout>
 
 
@@ -78,7 +67,7 @@
                     android:id="@+id/uNameTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="@string/name"
                     android:textColor="@color/black"
                     android:textSize="16sp"/>
 

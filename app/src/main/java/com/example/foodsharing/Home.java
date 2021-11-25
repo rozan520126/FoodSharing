@@ -47,7 +47,7 @@ public class Home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
-        System.out.print("88888");
+
         //init
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -62,8 +62,7 @@ public class Home extends Fragment {
 
         //init post list
         postList = new ArrayList<>();
-        adapterPost = new AdapterPost(getActivity(),postList);
-        recyclerView.setAdapter(adapterPost);
+
         loadPosts();
 
         return view;
@@ -77,9 +76,10 @@ public class Home extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds: snapshot.getChildren()){
-
                     Post post = ds.getValue(Post.class);
                     postList.add(post);
+                    adapterPost = new AdapterPost(getActivity(),postList);
+                    recyclerView.setAdapter(adapterPost);
                 }
             }
             @Override

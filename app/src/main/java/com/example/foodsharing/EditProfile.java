@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -192,7 +193,7 @@ public class EditProfile extends AppCompatActivity {
                 hashMap.put("uid",uid);
                 hashMap.put("name",newName);
                 hashMap.put("phone",newPhone);
-                hashMap.put("image","");
+                hashMap.put("image","noImage");
                 hashMap.put("intro",newIntro);
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("Users");
