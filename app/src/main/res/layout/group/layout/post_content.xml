@@ -118,13 +118,11 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="none"
-            android:src="@drawable/v_time"
-            android:paddingRight="12dp"/>
+            android:src="@drawable/v_time" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="假日都可以"
+            android:text="假日都可以"
             android:textSize="18sp"/>
     </LinearLayout>
 
@@ -142,14 +140,12 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="none"
-            android:src="@drawable/v_location"
-            android:paddingRight="12dp" />
+            android:src="@drawable/v_location" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="社區門口"
+            android:text="社區門口"
             android:textSize="18sp" />
     </LinearLayout>
 

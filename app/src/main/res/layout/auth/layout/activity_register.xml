@@ -1,68 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:padding="24dp"
     tools:context=".Register">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="註冊"
+        android:layout_marginTop="80dp"
+        android:text="創 建 帳 號"
+        android:textStyle="bold"
         android:textColor="@color/colorPrimary"
-        android:textSize="25dp"/>
+        android:textSize="38sp"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp">
+
+            <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/bacground_image"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="選擇照片" />
+
+        </FrameLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailTIL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailEt"
-            android:inputType="textEmailAddress"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailTIL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="30dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordTIL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_below="@+id/emailTIL"
-        app:passwordToggleEnabled="true">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordEt"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEt"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="80dp"
+                android:inputType="textEmailAddress"
+                android:hint="帳號/信箱"
+                android:background="@drawable/background_input"
+                android:paddingHorizontal="16dp"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordTIL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="password"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="20dp"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEt"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:inputType="textPassword"
+                android:hint="密碼"
+                android:background="@drawable/background_input"
+                android:paddingHorizontal="16dp"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/registerBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="註冊"
-        android:layout_below="@+id/passwordTIL"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"/>
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@color/bgColor"/>
 
     <TextView
         android:id="@+id/have_accountTv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="已經有帳號了嗎?點此登入!"
-        android:textAlignment="center"
-        android:layout_below="@+id/registerBtn"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"/>
+    </LinearLayout>
 
 
 
-</RelativeLayout>
+
+</ScrollView>
