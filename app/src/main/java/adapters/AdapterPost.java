@@ -25,6 +25,15 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
     Context context;
     List<Post> postList;
 
+    private static OnItemClickListener mListener;
+    public interface OnItemClickListener{
+        void onItemClick(int postition);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
+
     public AdapterPost(Context context, List<Post> postList) {
         this.context = context;
         this.postList = postList;
@@ -40,15 +49,18 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
+        Post currentItem = postList.get(i);
 
         //get data
 //        String uid = postList.get(i).getUid();
-        String uName = postList.get(i).getuName();
-        String uImage = postList.get(i).getuImage();
+        String uName = currentItem.getuName();
+        String uImage = currentItem.getuImage();
 //        String pId = postList.get(i).getpId();
-        String pTitle = postList.get(i).getpTitle();
+        String pTitle = currentItem.getpTitle();
 //        String pDes = postList.get(i).getpDes();
-        String pImage = postList.get(i).getpImage();
+        String pImage = currentItem.getpImage();
+        String pdayTime = currentItem.getpdaytime();
+        String pLocation = currentItem.getpLocation();
 //        String pTimeStamp = postList.get(i).getpTime();
 
         //convert timestamp to dd/mm/yyyy hh:mm am/pm
@@ -114,6 +126,18 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
             pImageIv = itemView.findViewById(R.id.pImageIv);
             uNameTv = itemView.findViewById(R.id.uNameTv);
             pTitleTv = itemView.findViewById(R.id.pTitleTv);
+
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    if (mListener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            mListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

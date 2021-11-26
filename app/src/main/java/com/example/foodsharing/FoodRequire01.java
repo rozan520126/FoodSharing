@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class PostContent_Buy extends AppCompatActivity {
+public class FoodRequire01 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.buy_post_content);
+        setContentView(R.layout.activity_food_require01);
     }
 }

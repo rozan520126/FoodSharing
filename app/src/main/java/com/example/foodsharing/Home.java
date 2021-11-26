@@ -29,7 +29,15 @@ import adapters.AdapterPost;
 import models.Post;
 
 
-public class Home extends Fragment {
+public class Home extends Fragment implements AdapterPost.OnItemClickListener {
+    public static final String EXTRA_PIMG = "pImg";
+    public static final String EXTRA_PTITLE = "pTitle";
+    public static final String EXTRA_PDES = "pDes";
+    public static final String EXTRA_NAME = "uName";
+    public static final String EXTRA_UIMG = "uImg";
+    public static final String EXTRA_PTIME = "pTime";
+    public static final String EXTRA_PLOC = "pLoc";
+
 
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
@@ -80,6 +88,7 @@ public class Home extends Fragment {
                     postList.add(post);
                     adapterPost = new AdapterPost(getActivity(),postList);
                     recyclerView.setAdapter(adapterPost);
+                    adapterPost.setOnItemClickListener(Home.this);
                 }
             }
             @Override
@@ -108,4 +117,19 @@ public class Home extends Fragment {
 
     }
 
+    @Override
+    public void onItemClick(int postition) {
+        Intent contentIntent = new Intent(getActivity(),FoodContent.class);
+        Post clickItem = postList.get(postition);
+
+        contentIntent.putExtra(EXTRA_PIMG, clickItem.getpImage());
+        contentIntent.putExtra(EXTRA_PTITLE, clickItem.getpTitle());
+        contentIntent.putExtra(EXTRA_PDES, clickItem.getpDes());
+        contentIntent.putExtra(EXTRA_NAME, clickItem.getuName());
+        contentIntent.putExtra(EXTRA_UIMG, clickItem.getuImage());
+        contentIntent.putExtra(EXTRA_PTIME, clickItem.getpdaytime());
+        contentIntent.putExtra(EXTRA_PLOC, clickItem.getpLocation());
+
+        startActivity(contentIntent);
+    }
 }

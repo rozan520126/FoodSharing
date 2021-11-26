@@ -102,7 +102,7 @@ public class EditProfile extends AppCompatActivity {
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updataProlfile();
+                updateProlfile();
             }
         });
 
@@ -143,7 +143,7 @@ public class EditProfile extends AppCompatActivity {
 
     }
 
-    private void updataProlfile() {
+    private void updateProlfile() {
         String email = user.getEmail();
         String uid =user.getUid();
         String newName = nameEd.getText().toString();
@@ -182,7 +182,7 @@ public class EditProfile extends AppCompatActivity {
                             DatabaseReference myRef = database.getReference("Users");
                             myRef.child(uid).setValue(hashMap);
                             Toast.makeText(EditProfile.this, "更新成功!!", Toast.LENGTH_SHORT).show();
-                            finish();
+                            startActivity(new Intent(EditProfile.this,MainActivity.class));
                         }
                     }
                 });
@@ -199,7 +199,7 @@ public class EditProfile extends AppCompatActivity {
                 DatabaseReference myRef = database.getReference("Users");
                 myRef.child(uid).setValue(hashMap);
                 Toast.makeText(this, "更新成功!!", Toast.LENGTH_SHORT).show();
-                finish();
+                startActivity(new Intent(EditProfile.this,MainActivity.class));
             }
 
         }

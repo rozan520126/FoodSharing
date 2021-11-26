@@ -12,16 +12,18 @@ import android.app.ProgressDialog;
 
 import android.content.Intent;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import android.widget.Toast;
@@ -43,12 +45,14 @@ import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import adapters.AdapterPhoto;
 import gun0912.tedbottompicker.TedBottomPicker;
 import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 public class AddPost extends AppCompatActivity {
 
@@ -71,6 +75,7 @@ public class AddPost extends AppCompatActivity {
 
     private RecyclerView rcvPhoto;
     private AdapterPhoto photoAdapter;
+
     private Spinner timeSpinner;
     private ArrayAdapter timeArrayAdapter;
 
@@ -81,8 +86,8 @@ public class AddPost extends AppCompatActivity {
 
     Uri image_uri = null;
 
-//    private ArrayList<Uri> imageUris = null;
-
+//    ArrayList<Uri> imageUris = new ArrayList<>();
+    ArrayList<String> imageUris = new ArrayList<>();
     ProgressDialog pd;
 
     @Override
@@ -120,20 +125,54 @@ public class AddPost extends AppCompatActivity {
         desEt = (EditText)findViewById(R.id.pDescription);
         daytimeEt = (EditText)findViewById(R.id.pTime);
         locationEt = (EditText)findViewById(R.id.pLocation);
-        imageIv = (ImageView) findViewById(R.id.pImageIv);
+//        imageIv = (ImageView) findViewById(R.id.pImageIv);
         uploadBtn = (Button) findViewById(R.id.pUploadBtn);
-
+        photoAdapter = new AdapterPhoto(AddPost.this,imageUris);
         rcvPhoto = (RecyclerView) findViewById(R.id.rcvPhoto);
-        photoAdapter = new AdapterPhoto(this);
+
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
         rcvPhoto.setLayoutManager(linearLayoutManager);
         rcvPhoto.setFocusable(false);
         rcvPhoto.setAdapter(photoAdapter);
 
-        imageIv.setOnClickListener(new View.OnClickListener() {
+
+        //test
+        photoAdapter.setOnItemClickLitener(new AdapterPhoto.OnItemClickLitener() {
+            @Override
+            public void onNewClick(int position) {
+               if (position == imageUris.size()-1){
+                   Intent intent = new Intent(AddPost.this, MultiImageSelectorActivity.class);
+                   intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
+                   intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9);
+                   intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_SINGLE);
+                   startActivityForResult(intent, 10001);
+               }else {
+                   Intent intent = new Intent(AddPost.this, MultiImageSelectorActivity.class);
+                   intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
+                   intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9);
+                   intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_SINGLE);
+                   int poss = position;
+                   startActivityForResult(intent, 10002);//10002-->修改
+               }
+            }
+
+            @Override
+            public void onDeleClick(int position) {
+                imageUris.remove(position);
+                photoAdapter.notifyItemRemoved(position);
+            }
+        });
+
+        if(imageUris.size() == 0){
+            imageUris.add("dele");
+        }
+
+
+        rcvPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestPermission();
+//                requestPermission();
 //                showImagePick();
             }
         });
@@ -168,6 +207,12 @@ public class AddPost extends AppCompatActivity {
                 else {
                     uploadData(title,des,daytime,location,String.valueOf(image_uri));
                 }
+//                if (imageUris == null){
+//                    uploadData(title,des,daytime,location,"noImage");
+//                }
+//                else {
+//                    uploadData(title,des,daytime,location,String.valueOf(imageUris));
+//                }
             }
         });
 
@@ -177,42 +222,47 @@ public class AddPost extends AppCompatActivity {
 
 
     }
-//新方法
-    private void requestPermission() {
-        PermissionListener permissionlistener = new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-                openBottomPicker();
-            }
 
-            @Override
-            public void onPermissionDenied(List<String> deniedPermissions) {
-                Toast.makeText(AddPost.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-            }
-        };
-        TedPermission.create()
-                .setPermissionListener(permissionlistener)
-                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
-                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .check();
-    }
-
-    private void openBottomPicker() {
-        TedBottomPicker.with(AddPost.this)
-                .setPeekHeight(1600)
-                .showTitle(false)
-                .setCompleteButtonText("Done")
-                .setEmptySelectionText("No Select")
-                .showMultiImage(new TedBottomSheetDialogFragment.OnMultiImageSelectedListener() {
-                    @Override
-                    public void onImagesSelected(List<Uri> uriList) {
-                        if (uriList != null && !uriList.isEmpty()){
-                            photoAdapter.setData(uriList);
-                        }
-                    }
-                });
-
-    }
+    //新方法
+//    private void requestPermission() {
+//        PermissionListener permissionlistener = new PermissionListener() {
+//            @Override
+//            public void onPermissionGranted() {
+//                openBottomPicker();
+//            }
+//
+//            @Override
+//            public void onPermissionDenied(List<String> deniedPermissions) {
+//                Toast.makeText(AddPost.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+//            }
+//        };
+//        TedPermission.create()
+//                .setPermissionListener(permissionlistener)
+//                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+//                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                .check();
+//    }
+//
+//    private void openBottomPicker() {
+//        TedBottomPicker.with(AddPost.this)
+//                .setPeekHeight(1600)
+//                .showTitle(false)
+//                .setCompleteButtonText("Done")
+//                .setEmptySelectionText("No Select")
+//                .showMultiImage(new TedBottomSheetDialogFragment.OnMultiImageSelectedListener() {
+//                    @Override
+//                    public void onImagesSelected(List<Uri> uriList) {
+//                        if (uriList != null && !uriList.isEmpty()){
+//                            photoAdapter.setData(uriList);
+//                            for (int i =0;i<uriList.size();i++){
+//                                image_uri = uriList.get(i);
+//                                imageUris.add(uriList.get(i));
+//                            }
+//                        }
+//                    }
+//                });
+//
+//    }
 
     private void uploadData(String title, String des,String daytime,String location , String uri) {
         pd.setMessage("發布中...");
@@ -310,13 +360,26 @@ public class AddPost extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if ((data!=null)){
+            if (requestCode == 10001 || requestCode == 10002){
+                final ArrayList<String> paths = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                Bitmap bitmap = BitmapFactory.decodeFile(paths.get(0));
 
-
-//    timespinner
-//    timeSpinner = (Spinner) findViewById(R.id.spinner_time);
-//    ArrayAdapter<CharSequence> timeArrayAdapter = ArrayAdapter.createFromResource(this,R.array.time_agreement_array, R.layout.support_simple_spinner_dropdown_item);
-//
-
+                if (requestCode == 10001){
+                    imageUris.add(0,paths.get(0));
+                    photoAdapter.notifyItemInserted(0);
+                }
+                else if (requestCode == 10002 && imageUris.size()>0){
+                    int pos = 0;
+                    imageUris.set(pos,paths.get(0));
+                    photoAdapter.notifyItemChanged(pos);
+                }
+            }
+        }
+    }
 
 //    private void showImagePick() {
 //        String[] options = {"相機","相簿"};
@@ -430,6 +493,7 @@ public class AddPost extends AppCompatActivity {
 //        }
 //        super.onActivityResult(requestCode, resultCode, data);
 //    }
+
     private void checkUserStatus(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){

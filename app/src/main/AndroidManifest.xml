@@ -16,9 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <service android:name="com.google.android.gms.measurement.AppMeasurementService"
+        <activity
+            android:name=".FoodRequire01"
+            android:exported="false" />
+        <activity
+            android:name=".FoodContent"
+            android:exported="false" />
+
+        <service
+            android:name="com.google.android.gms.measurement.AppMeasurementService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
+
         <activity
             android:name=".ChatActivity"
             android:exported="false" />
@@ -43,7 +52,6 @@
         <activity
             android:name=".Test"
             android:exported="true" />
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
