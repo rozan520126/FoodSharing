@@ -49,9 +49,6 @@
         <activity
             android:name=".Start"
             android:exported="true" />
-        <activity
-            android:name=".Test"
-            android:exported="true" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
