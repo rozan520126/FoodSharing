@@ -1,6 +1,7 @@
 package com.example.foodsharing;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,6 +45,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,8 +75,8 @@ public class AddPost extends AppCompatActivity {
     ImageView imageIv;
     Button uploadBtn;
 
-    private RecyclerView rcvPhoto;
-    private AdapterPhoto photoAdapter;
+//    private RecyclerView rcvPhoto;
+//    private AdapterPhoto photoAdapter;
 
     private Spinner timeSpinner;
     private ArrayAdapter timeArrayAdapter;
@@ -87,7 +89,6 @@ public class AddPost extends AppCompatActivity {
     Uri image_uri = null;
 
 //    ArrayList<Uri> imageUris = new ArrayList<>();
-    ArrayList<String> imageUris = new ArrayList<>();
     ProgressDialog pd;
 
     @Override
@@ -125,54 +126,24 @@ public class AddPost extends AppCompatActivity {
         desEt = (EditText)findViewById(R.id.pDescription);
         daytimeEt = (EditText)findViewById(R.id.pTime);
         locationEt = (EditText)findViewById(R.id.pLocation);
-//        imageIv = (ImageView) findViewById(R.id.pImageIv);
+        imageIv = (ImageView) findViewById(R.id.pImageIv);
         uploadBtn = (Button) findViewById(R.id.pUploadBtn);
-        photoAdapter = new AdapterPhoto(AddPost.this,imageUris);
-        rcvPhoto = (RecyclerView) findViewById(R.id.rcvPhoto);
 
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
-        rcvPhoto.setLayoutManager(linearLayoutManager);
-        rcvPhoto.setFocusable(false);
-        rcvPhoto.setAdapter(photoAdapter);
+//        photoAdapter = new AdapterPhoto(AddPost.this);
+//        rcvPhoto = (RecyclerView) findViewById(R.id.rcvPhoto);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+//        rcvPhoto.setLayoutManager(linearLayoutManager);
+//        rcvPhoto.setFocusable(false);
+//        rcvPhoto.setAdapter(photoAdapter);
 
 
-        //test
-        photoAdapter.setOnItemClickLitener(new AdapterPhoto.OnItemClickLitener() {
-            @Override
-            public void onNewClick(int position) {
-               if (position == imageUris.size()-1){
-                   Intent intent = new Intent(AddPost.this, MultiImageSelectorActivity.class);
-                   intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
-                   intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9);
-                   intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_SINGLE);
-                   startActivityForResult(intent, 10001);
-               }else {
-                   Intent intent = new Intent(AddPost.this, MultiImageSelectorActivity.class);
-                   intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
-                   intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9);
-                   intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_SINGLE);
-                   int poss = position;
-                   startActivityForResult(intent, 10002);//10002-->修改
-               }
-            }
 
-            @Override
-            public void onDeleClick(int position) {
-                imageUris.remove(position);
-                photoAdapter.notifyItemRemoved(position);
-            }
-        });
-
-        if(imageUris.size() == 0){
-            imageUris.add("dele");
-        }
-
-
-        rcvPhoto.setOnClickListener(new View.OnClickListener() {
+        imageIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                requestPermission();
+                CropImage.activity().setAspectRatio(1,1).start(AddPost.this);
 //                showImagePick();
             }
         });
@@ -256,7 +227,7 @@ public class AddPost extends AppCompatActivity {
 //                            photoAdapter.setData(uriList);
 //                            for (int i =0;i<uriList.size();i++){
 //                                image_uri = uriList.get(i);
-//                                imageUris.add(uriList.get(i));
+////                                imageUris.add(uriList.get(i));
 //                            }
 //                        }
 //                    }
@@ -361,23 +332,14 @@ public class AddPost extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        if ((data!=null)){
-            if (requestCode == 10001 || requestCode == 10002){
-                final ArrayList<String> paths = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-                Bitmap bitmap = BitmapFactory.decodeFile(paths.get(0));
-
-                if (requestCode == 10001){
-                    imageUris.add(0,paths.get(0));
-                    photoAdapter.notifyItemInserted(0);
-                }
-                else if (requestCode == 10002 && imageUris.size()>0){
-                    int pos = 0;
-                    imageUris.set(pos,paths.get(0));
-                    photoAdapter.notifyItemChanged(pos);
-                }
-            }
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null){
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            image_uri = result.getUri();
+            imageIv.setImageURI(image_uri);
+        }else {
+            Toast.makeText(this, "載入失敗", Toast.LENGTH_SHORT).show();
         }
     }
 

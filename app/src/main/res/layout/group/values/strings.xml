@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<resources></resources>
-=======
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="email">Email</string>
 </resources>
->>>>>>> 1ab5d70cb3fad3255d82231e399cd983312ef1ad
