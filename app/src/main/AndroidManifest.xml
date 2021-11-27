@@ -17,9 +17,6 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".FoodRequire01"
-            android:exported="false" />
-        <activity
             android:name=".FoodContent"
             android:exported="false" />
 
