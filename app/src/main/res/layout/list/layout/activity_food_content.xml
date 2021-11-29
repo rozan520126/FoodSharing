@@ -28,16 +28,26 @@
         android:id="@+id/name_num"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img">
+
         <TextView
             android:id="@+id/pTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:hint="芭樂"
+            android:textSize="40sp"
+            android:text="芭樂"
+            android:textColor="@color/second_text"
             android:autoLink="all"/>
+
+        <TextView
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="4天前刊登" />
 
     </LinearLayout>
 
@@ -45,7 +55,7 @@
         android:id="@+id/detail_des"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_num">
@@ -55,21 +65,20 @@
             android:id="@+id/pDes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="2天前買的芭樂，但拔了智齒咬不動"
-            android:textSize="18sp" />
-
-
+            android:text="2天前買的芭樂，但拔了智齒咬不動"
+            android:textColor="@color/second_text"
+            android:textSize="20sp" />
     </LinearLayout>
 
+
     <View
-        android:id="@+id/context_line"
+        android:id="@+id/context_line2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#777"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail_des"
         android:layout_marginTop="12dp"/>
-
 
 
     <LinearLayout
@@ -79,7 +88,7 @@
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/context_line">
+        app:layout_constraintTop_toBottomOf="@+id/context_line2">
 
         <com.blogspot.atifsoftwares.circularimageview.CircularImageView
             android:id="@+id/uImg"
@@ -94,19 +103,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:hint="小陳叔叔"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:text="小陳叔叔 , "
+            android:textColor="@color/second_text"
+
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="8小時後過期"
+            android:textSize="20sp" />
 
     </LinearLayout>
-
 
 
     <LinearLayout
         android:id="@+id/detail_validity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,15 +132,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/material_on_background_disabled"
-            android:src="@drawable/v_time"
+            android:src="@drawable/ic_time"
             android:paddingRight="12dp"/>
-            android:src="@drawable/v_time" />
+
         <TextView
             android:id="@+id/pTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="假日都可以"
-            android:textSize="18sp"/>
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
     </LinearLayout>
 
 
@@ -132,7 +149,7 @@
         android:id="@+id/detail_loc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -144,20 +161,22 @@
             android:background="@color/material_on_background_disabled"
             android:src="@drawable/v_location"
             android:paddingRight="12dp" />
-            android:src="@drawable/v_location" />
+
 
         <TextView
             android:id="@+id/pLoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="社區門口"
-            android:textSize="18sp" />
+            android:textColor="@color/black"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -167,6 +186,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_shape01"
             android:text="立即下架"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:padding="12dp"
             android:layout_marginRight="32dp"/>
@@ -174,8 +194,10 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_shape01"
+            android:background="@drawable/btn_shape_orange"
             android:text="你有 則私訊"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="18sp"
             android:padding="12dp"/>
     </LinearLayout>
