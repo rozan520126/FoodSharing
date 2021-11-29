@@ -93,7 +93,7 @@ public class Home extends Fragment implements AdapterPost.OnItemClickListener {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(),""+error.getMessage(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(),""+error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -104,7 +104,7 @@ public class Home extends Fragment implements AdapterPost.OnItemClickListener {
             email = user.getEmail();
             uid = user.getUid();
         }else {
-            startActivity(new Intent(getActivity(),Start.class));
+            startActivity(new Intent(getActivity(),Login.class));
         }
     }
     @Override
@@ -113,9 +113,6 @@ public class Home extends Fragment implements AdapterPost.OnItemClickListener {
         super.onStart();
     }
 
-    private void searchPosts(String searchQuery){
-
-    }
 
     @Override
     public void onItemClick(int postition) {

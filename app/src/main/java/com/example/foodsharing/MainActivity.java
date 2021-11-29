@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         mMainNav = findViewById(R.id.toolbar_bottom);
         mMainNav.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.p1_list:
                     setFragment(new Home());
                     break;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 //                    setFragment(new Home());
 //                    break;
                 case R.id.p3_post:
-                    startActivity(new Intent(MainActivity.this,AddPost.class));
+                    startActivity(new Intent(MainActivity.this, AddPost.class));
                     break;
 //                case R.id.p4_group:
 //                    setFragment(new Home());
@@ -66,23 +66,23 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
-    private void setFragment(Fragment fragment){
+
+    private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
     }
+
     @Override
-    protected void onStart(){
+    protected void onStart() {
         checkUserStatus();
         super.onStart();
     }
-    private void checkUserStatus(){
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null){
 
-        }else {
-//            startActivity(new Intent(MainActivity.this,Start.class));
-//            finish();
+    private void checkUserStatus() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null) {
+            startActivity(new Intent(MainActivity.this, Login.class));
         }
     }
 

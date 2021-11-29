@@ -59,7 +59,7 @@ public class Dashboard extends AppCompatActivity {
         if (user != null){
 //            mProfileTv.setText(user.getEmail());
         }else {
-            startActivity(new Intent(Dashboard.this,Start.class));
+            startActivity(new Intent(Dashboard.this,Login.class));
             finish();
         }
     }

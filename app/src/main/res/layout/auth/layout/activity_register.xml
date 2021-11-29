@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
     android:padding="24dp"
+    android:scrollbars="none"
     tools:context=".Register">
 
     <LinearLayout
@@ -14,14 +14,14 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="創 建 帳 號"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:textSize="38sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="創 建 帳 號"
+            android:textColor="@color/colorPrimary"
+            android:textSize="38sp"
+            android:textStyle="bold" />
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -29,12 +29,14 @@
             android:layout_marginTop="40dp">
 
             <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+                android:id="@+id/myphoto"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@drawable/bacground_image"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop" />
 
             <TextView
+                android:id="@+id/hintText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -54,9 +56,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="80dp"
-                android:inputType="textEmailAddress"
-                android:hint="帳號/信箱"
                 android:background="@drawable/background_input"
+                android:hint="帳號/信箱"
+                android:inputType="textEmailAddress"
                 android:paddingHorizontal="16dp"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -73,34 +75,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
-                android:inputType="textPassword"
-                android:hint="密碼"
                 android:background="@drawable/background_input"
+                android:hint="密碼"
+                android:inputType="textPassword"
                 android:paddingHorizontal="16dp"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/registerBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="註冊"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:background="@color/bgColor"/>
+        <Button
+            android:id="@+id/registerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="@color/bgColor"
+            android:text="註冊"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/have_accountTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="已經有帳號了嗎?點此登入!"
-        android:layout_marginTop="30dp"
-        android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/have_accountTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="已經有帳號了嗎?點此登入!"
+            android:textSize="16sp" />
     </LinearLayout>
-
-
 
 
 </ScrollView>

@@ -39,7 +39,7 @@ import java.util.HashMap;
 public class EditProfile extends AppCompatActivity {
 
     //firebase
-    FirebaseAuth firebaseAuth;
+    FirebaseAuth mAuth;
     FirebaseUser user;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -63,8 +63,8 @@ public class EditProfile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         //init firebase
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
         storageReference = FirebaseStorage.getInstance().getReference().child("ProfilePic");
@@ -154,7 +154,7 @@ public class EditProfile extends AppCompatActivity {
         }else {
             if (imageUri != null) {
                 final StorageReference fileRef = storageReference
-                        .child(firebaseAuth.getCurrentUser().getUid()+".jpg");
+                        .child(mAuth.getCurrentUser().getUid()+".jpg");
                 uploadTask = fileRef.putFile(imageUri);
                 uploadTask.continueWithTask(new Continuation() {
                     @Override

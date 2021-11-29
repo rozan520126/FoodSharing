@@ -462,7 +462,7 @@ public class AddPost extends AppCompatActivity {
             email = user.getEmail();
             uid = user.getUid();
         }else {
-            startActivity(new Intent(this,Start.class));
+            startActivity(new Intent(this,Login.class));
             finish();
         }
     }
