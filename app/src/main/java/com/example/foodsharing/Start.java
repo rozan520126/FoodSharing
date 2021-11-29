@@ -7,29 +7,42 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class Start extends AppCompatActivity {
 
-    Button mRegisterBtn, mLoginBtn;
+    Button signUp, login;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
 
-        mRegisterBtn = findViewById(R.id.register);
-        mLoginBtn = findViewById(R.id.login);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null) {
+            setContentView(R.layout.activity_start);
+            signUp = findViewById(R.id.signUp);
+            login = findViewById(R.id.login);
 
-        mRegisterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Start.this,Register.class));
-            }
-        });
-        mLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Start.this,Login.class));
-            }
-        });
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(Start.this, Login.class));
+                }
+            });
+
+            signUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(Start.this, Register.class));
+                }
+            });
+        } else {
+            startActivity(new Intent(Start.this, MainActivity.class));
+        }
+
+
     }
 }

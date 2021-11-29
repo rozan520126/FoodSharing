@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
     android:padding="24dp"
+    android:scrollbars="none"
     tools:context=".Login">
 
     <LinearLayout
@@ -19,30 +19,29 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:text="換 享 食 客"
-            android:textStyle="bold"
             android:textColor="@color/colorPrimary"
-            android:textSize="46sp"/>
+            android:textSize="46sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="為食物找到適合的新家"
-            android:textStyle="bold"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailEt"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="80dp"
-                android:inputType="textEmailAddress"
-                android:hint="帳號/信箱"
-                android:background="@drawable/background_input"
-                android:paddingHorizontal="16dp"
-                android:textSize="18sp"
-                />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailEt"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/background_input"
+            android:hint="帳號/信箱"
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="16dp"
+            android:textSize="18sp" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -57,9 +56,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
-                android:inputType="textPassword"
-                android:hint="密碼"
                 android:background="@drawable/background_input"
+                android:hint="密碼"
+                android:inputType="textPassword"
                 android:paddingHorizontal="16dp"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -69,43 +68,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
+            android:background="@color/colorPrimary"
             android:text="登 入"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:background="@color/colorPrimary" />
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/recoverTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="忘記密碼?按此找回密碼"
-                android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/recoverTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="忘記密碼?按此找回密碼"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/nothave_accountTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="還沒有帳號嗎?點此註冊!"
-                android:textSize="16sp" />
-
-
+        <TextView
+            android:id="@+id/nothave_accountTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="還沒有帳號嗎?點此註冊!"
+            android:textSize="16sp" />
 
 
     </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
 
 
 </ScrollView>
