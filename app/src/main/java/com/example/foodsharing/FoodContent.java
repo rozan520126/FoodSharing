@@ -8,10 +8,13 @@ import static com.example.foodsharing.Home.EXTRA_PTIME;
 import static com.example.foodsharing.Home.EXTRA_PTITLE;
 import static com.example.foodsharing.Home.EXTRA_UIMG;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +29,7 @@ public class FoodContent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_content);
+
 
         Intent intent = getIntent();
         String pImg = intent.getStringExtra(EXTRA_PIMG);
@@ -56,5 +60,23 @@ public class FoodContent extends AppCompatActivity {
         pLocTv.setText(pLoc);
         uNameTv.setText(uName);
 
+        androidx.appcompat.widget.Toolbar myToolbar = findViewById(R.id.toolbar_edit);
+
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle("");
+
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_edit,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+
+
 }
