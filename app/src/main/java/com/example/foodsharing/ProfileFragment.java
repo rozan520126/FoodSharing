@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment {
 
     //views
     ImageView myphoto;
-    TextView nameTv, introTv, edit, logOut;
+    TextView nameTv, introTv;
 
     ProgressDialog pd;
 
@@ -90,7 +90,6 @@ public class ProfileFragment extends Fragment {
         myphoto = view.findViewById(R.id.myphoto);
         nameTv = view.findViewById(R.id.nameTv);
         introTv = view.findViewById(R.id.introTv);
-//        logOut = view.findViewById(R.id.logOut);
 
 //        edit = view.findViewById(R.id.edit);
 //        edit.setOnClickListener(new View.OnClickListener() {
@@ -102,14 +101,6 @@ public class ProfileFragment extends Fragment {
 
         pd = new ProgressDialog(getActivity());
 
-//        logOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                pd.dismiss();
-//                FirebaseAuth.getInstance().signOut();
-//                startActivity(new Intent(getActivity(),Login.class));
-//            }
-//        });
 
         //取得user資料
         Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
