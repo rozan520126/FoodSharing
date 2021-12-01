@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -52,6 +55,10 @@ public class ProfileFragment extends Fragment {
     String cameraPermissions[];
     String storagePermissions[];
 
+    //切換畫面tablayout
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
     Uri image_uri;
 
     String profilePhoto;
@@ -81,27 +88,26 @@ public class ProfileFragment extends Fragment {
         myphoto = view.findViewById(R.id.myphoto);
         nameTv = view.findViewById(R.id.nameTv);
         introTv = view.findViewById(R.id.introTv);
-        logOut = view.findViewById(R.id.logOut);
+//        logOut = view.findViewById(R.id.logOut);
 
-        edit = view.findViewById(R.id.edit);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), EditProfile.class));
-            }
-        });
+//        edit = view.findViewById(R.id.edit);
+//        edit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(), EditProfile.class));
+//            }
+//        });
 
         pd = new ProgressDialog(getActivity());
 
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pd.dismiss();
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getActivity(),Login.class));
-            }
-        });
-
+//        logOut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                pd.dismiss();
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(getActivity(),Login.class));
+//            }
+//        });
 
         //取得user資料
         Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
@@ -138,6 +144,55 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
+        //切換畫面tablayout
+        tabLayout = view.findViewById(R.id.tab_layout);
+        viewPager = view.findViewById(R.id.view_pager);
+
+        tabLayout.addTab(tabLayout.newTab().setText("刊登紀錄"));
+        tabLayout.addTab(tabLayout.newTab().setText("關於"));
+
+        viewPager.setAdapter(new FragmentPagerAdapter(requireActivity().getSupportFragmentManager(),FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT ) {
+            @NonNull
+            @Override
+            public Fragment getItem(int position) {
+                switch (position){
+                    case 0:
+                        PostRecord postRecord = new PostRecord();
+                        return postRecord;
+
+                    case 1:
+                        AboutProfile aboutProfile = new AboutProfile();
+                        return aboutProfile;
+
+                    default:
+                        return null;
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return tabLayout.getTabCount();
+            }
+        });
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         return view;
     }
 

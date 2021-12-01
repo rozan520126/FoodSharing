@@ -1,253 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="25dp"
-    android:orientation="vertical"
-    tools:context=".ProfileFragment">
-        <LinearLayout
-            android:id="@+id/upper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints"
-            app:layout_constraintBottom_toTopOf="@+id/guideline1"
-            app:layout_constraintTop_toTopOf="@+id/content">
-            <ImageView
-                android:id="@+id/myphoto"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginStart="25dp"
-                tools:src="@tools:sample/avatars" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-                    <TextView
-                        android:id="@+id/nameTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="24sp" />
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="100dp"
-                        android:layout_alignLeft="@+id/nameTv"
-                        android:gravity="center">
-                        <ImageView
-                            android:id="@+id/point_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/coin" />
-                        <TextView
-                            android:id="@+id/point"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="16200"
-                            android:textSize="24sp" />
-                    </LinearLayout>
-                </RelativeLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-                    <TextView
-                        android:id="@+id/star_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5.0"/>
-                    <RatingBar
-                        android:id="@+id/star"
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:isIndicator="true" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="( 5 )"/>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3"
-            app:layout_constraintTop_toBottomOf="@+id/upper" />
-        <LinearLayout
-            android:id="@+id/threeBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="5dp"
-            tools:ignore="MissingConstraints"
-            app:layout_constraintTop_toBottomOf="@+id/guideline1">
-            <TextView
-                android:id="@+id/success"
-                android:layout_width="135dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="12&#010;成功換取" />
-            <TextView
-                android:id="@+id/fans"
-                android:layout_width="136dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="300&#010;粉絲" />
-            <TextView
-                android:id="@+id/follow"
-                android:layout_width="136dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="20&#010;關注中" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/twoBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints"
-            app:layout_constraintTop_toBottomOf="@+id/threeBtn">
-            <Button
-                android:id="@+id/postRecord"
-                android:layout_width="204dp"
-                android:layout_height="wrap_content"
-                android:text="刊登紀錄" />
-            <Button
-                android:id="@+id/about"
-                android:layout_width="204dp"
-                android:layout_height="wrap_content"
-                android:text="關於" />
-        </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical"
+        tools:context=".ProfileFragment">
 
-        <TextView
-            android:id="@+id/introTv"
-            android:inputType="textMultiLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="我的自我介紹啦~嗨嗨大家好~"
-            tools:ignore="MissingConstraints"
-            app:layout_constraintTop_toBottomOf="@+id/twoBtn"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_straight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5013477" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5"
-            app:layout_constraintTop_toTopOf="@+id/introTv"/>
-        <LinearLayout
+            app:layout_constraintGuide_percent="0.35" />
+
+    <ImageView
+        android:id="@+id/myphoto"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="20dp"
+        tools:src="@tools:sample/avatars"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_straight"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline1"/>
+
+    <TextView
+        android:id="@+id/nameTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="小陳叔叔"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="@+id/myphoto"
+        app:layout_constraintBottom_toTopOf="@id/star_all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_straight" />
+
+
+    <LinearLayout
+        android:id="@+id/star_all"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@id/guideline_straight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTv">
+
+        <TextView
+            android:id="@+id/star_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5.0" />
+
+        <RatingBar
+            android:id="@+id/star"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="( 5 )" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/point_all"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_straight"
+        app:layout_constraintTop_toBottomOf="@+id/star_all"
+        app:layout_constraintBottom_toBottomOf="@+id/myphoto"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:id="@+id/point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 16200"
+            android:textSize="24sp"
+            app:drawableStartCompat="@drawable/coin" />
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/success"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="12&#010;成功換取"
+        app:layout_constraintBottom_toBottomOf="@+id/fans"
+        app:layout_constraintEnd_toStartOf="@+id/fans"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fans" />
+
+    <TextView
+        android:id="@+id/fans"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="300&#010;粉絲"
+        app:layout_constraintLeft_toRightOf="@+id/success"
+        app:layout_constraintRight_toLeftOf="@id/follow"
+        app:layout_constraintTop_toBottomOf="@id/guideline1"
+        app:layout_constraintHorizontal_weight="1"/>
+
+    <TextView
+        android:id="@+id/follow"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="20&#010;關注中"
+        app:layout_constraintBottom_toBottomOf="@+id/fans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/fans"
+        app:layout_constraintTop_toTopOf="@+id/fans" />
+
+
+        <TextView
+            android:id="@+id/introTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:text="我的自我介紹啦~嗨嗨大家好~"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@id/guideline2"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="16dp"
-            android:orientation="vertical"
-            tools:ignore="MissingConstraints"
-            app:layout_constraintTop_toBottomOf="@+id/guideline2">
-            <TextView
-                android:id="@+id/privacyTil"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="私人相關"
-                android:textSize="32sp"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
-                <TextView
-                    android:id="@+id/privacy1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="索取紀錄"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent" />
-                <ImageButton
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="@color/white"
-                    android:src="@drawable/arrow"
-                    android:scaleType="fitEnd" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
-                <TextView
-                    android:id="@+id/privacy2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="邀請碼"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent" />
-                <ImageButton
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="@color/white"
-                    android:src="@drawable/arrow"
-                    android:scaleType="fitEnd" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
-                <TextView
-                    android:id="@+id/privacy3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="帳號切換"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent" />
-                <ImageButton
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="@color/white"
-                    android:src="@drawable/arrow"
-                    android:scaleType="fitEnd" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
-                <TextView
-                    android:id="@+id/edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="其他設定"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent" />
-                <ImageButton
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="@color/white"
-                    android:src="@drawable/arrow"
-                    android:scaleType="fitEnd" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
-                <TextView
-                    android:id="@+id/logOut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="登出"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent" />
-            </LinearLayout>
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline2" />
 
 
-        </LinearLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/tab_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
