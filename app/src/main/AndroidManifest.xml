@@ -43,6 +43,9 @@
         <activity
             android:name=".Register"
             android:exported="true" />
+        <activity
+            android:name=".Start"
+            android:exported="true" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
