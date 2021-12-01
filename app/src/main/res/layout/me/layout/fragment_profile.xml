@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,12 +21,13 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5013477" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="60dp"
+            app:layout_constraintGuide_percent="0.2" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -165,33 +166,29 @@
             app:layout_constraintGuide_percent="0.5" />
 
 
-
-
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.575"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/guideline2" />
-
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/tab_layout"
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent" />
 
 
-
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</LinearLayout>

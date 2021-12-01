@@ -30,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import adapters.AdapterMeTab;
+
 
 public class ProfileFragment extends Fragment {
 
@@ -149,49 +151,12 @@ public class ProfileFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager = view.findViewById(R.id.view_pager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("刊登紀錄"));
-        tabLayout.addTab(tabLayout.newTab().setText("關於"));
+        tabLayout.setupWithViewPager(viewPager);
+        AdapterMeTab adapterMeTab = new AdapterMeTab(getActivity().getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        adapterMeTab.addFragment(new PostRecord(),"刊登紀錄");
+        adapterMeTab.addFragment(new AboutProfile(),"關於");
+        viewPager.setAdapter(adapterMeTab);
 
-        viewPager.setAdapter(new FragmentPagerAdapter(requireActivity().getSupportFragmentManager(),FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT ) {
-            @NonNull
-            @Override
-            public Fragment getItem(int position) {
-                switch (position){
-                    case 0:
-                        PostRecord postRecord = new PostRecord();
-                        return postRecord;
-
-                    case 1:
-                        AboutProfile aboutProfile = new AboutProfile();
-                        return aboutProfile;
-
-                    default:
-                        return null;
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return tabLayout.getTabCount();
-            }
-        });
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
         return view;
     }
