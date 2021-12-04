@@ -17,6 +17,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Chatroom_list"
+            android:exported="false" />
+        <activity
             android:name=".FoodContent"
             android:exported="false" />
 
@@ -43,10 +46,7 @@
         <activity
             android:name=".Register"
             android:exported="true" />
-        <activity
-            android:name=".Start"
-            android:exported="true" />
-
+        
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
