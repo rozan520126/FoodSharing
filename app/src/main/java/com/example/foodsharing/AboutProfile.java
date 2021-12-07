@@ -16,7 +16,7 @@ import org.w3c.dom.Text;
 
 public class AboutProfile extends Fragment {
 
-    TextView logOut,edit;
+    TextView logOut, edit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,12 +39,9 @@ public class AboutProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getActivity(),Login.class));
+                startActivity(new Intent(getActivity(), Login.class));
             }
         });
-
-
-
 
 
         return view;
