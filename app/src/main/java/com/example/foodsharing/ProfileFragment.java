@@ -89,7 +89,7 @@ public class ProfileFragment extends Fragment {
         //init view
         myphoto = view.findViewById(R.id.myphoto);
         nameTv = view.findViewById(R.id.nameTv);
-        introTv = view.findViewById(R.id.introTv);
+//        introTv = view.findViewById(R.id.introTv);
 
 //        edit = view.findViewById(R.id.edit);
 //        edit.setOnClickListener(new View.OnClickListener() {
@@ -112,11 +112,11 @@ public class ProfileFragment extends Fragment {
                     //get data
                     String name = "" + ds.child("name").getValue();
                     String image = "" + ds.child("image").getValue();
-                    String intro = "" + ds.child("intro").getValue();
+//                    String intro = "" + ds.child("intro").getValue();
 
                     //set data
                     nameTv.setText(name);
-                    introTv.setText(intro);
+//                    introTv.setText(intro);
 
 
                     try {

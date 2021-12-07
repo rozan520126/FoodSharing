@@ -2,7 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/action_edit"
+
+    <item
+        android:id="@+id/action_edit"
         android:title="編輯貼文"
         app:showAsAction="never"/>
+
+
 </menu>
