@@ -35,7 +35,7 @@ import java.util.HashMap;
 
 public class Register extends AppCompatActivity {
 
-    TextInputEditText emailEt, passwordEt;
+    TextInputEditText emailEt, passwordEt, nameEt;
     Button signUp;
     TextView haveAccountTv, imgHint;
     ImageView myPhoto;
@@ -69,6 +69,7 @@ public class Register extends AppCompatActivity {
         //init
         emailEt = findViewById(R.id.emailEt);
         passwordEt = findViewById(R.id.passwordEt);
+        nameEt = findViewById(R.id.name);
         signUp = findViewById(R.id.registerBtn);
         haveAccountTv = findViewById(R.id.have_accountTv);
         myPhoto = findViewById(R.id.myphoto);
@@ -82,14 +83,18 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
                 String email = emailEt.getText().toString().trim();
                 String password = passwordEt.getText().toString().trim();
+                String name = nameEt.getText().toString().trim();
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     emailEt.setError("無效的信箱!");
                     emailEt.setFocusable(true);
                 } else if (password.length() < 6) {
                     passwordEt.setError("密碼長度至少6位數!");
                     passwordEt.setFocusable(true);
-                } else {
-                    registerUser(email, password);
+                } else if(nameEt == null){
+                    nameEt.setError("名稱不得為空!");
+                }
+                else {
+                    registerUser(email, password,name);
                 }
             }
         });
@@ -111,7 +116,7 @@ public class Register extends AppCompatActivity {
 
     }
 
-    private void registerUser(String email, String password) {
+    private void registerUser(String email, String password,String name) {
         progressDialog.show();
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -144,7 +149,7 @@ public class Register extends AppCompatActivity {
                                             HashMap<Object, String> hashMap = new HashMap<>();
                                             hashMap.put("email", email);
                                             hashMap.put("uid", uid);
-                                            hashMap.put("name", "");
+                                            hashMap.put("name", name);
                                             hashMap.put("phone", "");
                                             hashMap.put("image", myUri);
                                             hashMap.put("intro", "");
@@ -167,7 +172,7 @@ public class Register extends AppCompatActivity {
                                 HashMap<Object, String> hashMap = new HashMap<>();
                                 hashMap.put("email", email);
                                 hashMap.put("uid", uid);
-                                hashMap.put("name", "");
+                                hashMap.put("name", name);
                                 hashMap.put("phone", "");
                                 hashMap.put("image", "noImage");
                                 hashMap.put("intro", "");
