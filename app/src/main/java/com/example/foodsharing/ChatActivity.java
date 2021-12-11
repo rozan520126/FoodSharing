@@ -149,10 +149,15 @@ public class ChatActivity extends AppCompatActivity {
         String uid = mAuth.getCurrentUser().getUid();
         long time = new Date().getTime();
 
-        if (TextUtils.isEmpty(msg)){
 
+        if (TextUtils.isEmpty(msg)){
+            input.setText("dd");
         }else {
-//
+//            FirebaseDatabase.getInstance()
+//                    .getReference()
+//                    .push()
+//                    .setValue(new ChatMessage(msg,uid));
+            input.setText("");
         }
     }
     private void Intialize(){
