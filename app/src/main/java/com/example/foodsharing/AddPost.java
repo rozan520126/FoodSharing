@@ -99,7 +99,7 @@ public class AddPost extends AppCompatActivity {
         Intialize();
 
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle("新增詳細資料");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //init permission
@@ -406,11 +406,6 @@ public class AddPost extends AppCompatActivity {
 //        ActivityCompat.requestPermissions(this,cameraPermissions,CAMERA_REQUEST_CODE);
 //    }
 //
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        onBackPressed();
-//        return super.onSupportNavigateUp();
-//    }
 //
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
