@@ -23,7 +23,7 @@
         <ImageView
             android:id="@+id/pImage"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:src="@drawable/guava" />
@@ -188,12 +188,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
+            android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_shape01"
@@ -204,10 +204,21 @@
             android:layout_marginRight="32dp"/>
 
         <Button
+            android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_shape_orange"
             android:text="你有 則私訊"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="12dp"/>
+        <Button
+            android:id="@+id/iWant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_shape_orange"
+            android:text="提出索取"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="18sp"
