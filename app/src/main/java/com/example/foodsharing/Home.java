@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -27,19 +28,21 @@ import java.util.List;
 
 import adapters.AdapterPost;
 import models.Post;
+import server.server_post;
 
 
 public class Home extends Fragment implements AdapterPost.OnItemClickListener {
     public static final String EXTRA_PID = "pId";
 
 
-    FirebaseAuth firebaseAuth;
-    FirebaseUser user;
+    FirebaseAuth mAuth;
+    Query query;
 
     RecyclerView recyclerView;
     AdapterPost adapterPost;
     ArrayList<Post> postList;
     String email,uid;
+
 
 
     @Override
@@ -49,7 +52,7 @@ public class Home extends Fragment implements AdapterPost.OnItemClickListener {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
         //init
-        firebaseAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         //recycler view and its properties
         recyclerView = view.findViewById(R.id.postsrecyclerView);
@@ -62,17 +65,14 @@ public class Home extends Fragment implements AdapterPost.OnItemClickListener {
 
         //init post list
         postList = new ArrayList<>();
-
         loadPosts();
-
         return view;
     }
 
     private void loadPosts() {
 //        path of all posts
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
-        //get all data from this ref
-        ref.addValueEventListener(new ValueEventListener() {
+        query = new server_post().GetReference();
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds: snapshot.getChildren()){
@@ -85,13 +85,13 @@ public class Home extends Fragment implements AdapterPost.OnItemClickListener {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-//                Toast.makeText(getActivity(),""+error.getMessage(),Toast.LENGTH_SHORT).show();
+
             }
         });
     }
 
     private void checkUserStatus(){
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
             email = user.getEmail();
             uid = user.getUid();
@@ -104,7 +104,6 @@ public class Home extends Fragment implements AdapterPost.OnItemClickListener {
         checkUserStatus();
         super.onStart();
     }
-
 
     @Override
     public void onItemClick(int postition) {

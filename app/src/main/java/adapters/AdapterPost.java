@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import listener.postListener;
 import models.Post;
 
 public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
