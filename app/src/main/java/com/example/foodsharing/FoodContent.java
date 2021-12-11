@@ -91,7 +91,7 @@ public class FoodContent extends AppCompatActivity {
                     String pDes = "" + ds.child("pDes").getValue();
                     String pTime = "" + ds.child("pTime").getValue();
                     String pLoc = "" + ds.child("pLocation").getValue();
-                    String uName = "" + ds.child("uName").getValue();
+                    String uName = "" + ds.child("uName").getValue()+" , ";
                     String uImg = "" + ds.child("uImage").getValue();
                     String postUid = "" +ds.child("uid").getValue();
 
