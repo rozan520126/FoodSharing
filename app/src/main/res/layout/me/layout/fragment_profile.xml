@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileFragment"
+    android:padding="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:orientation="vertical"
-        tools:context=".ProfileFragment">
+        android:layout_marginTop="24dp"
+        >
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_straight"
@@ -57,7 +58,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline_straight" />
 
-
         <LinearLayout
             android:id="@+id/star_all"
             android:layout_width="0dp"
@@ -86,95 +86,87 @@
                 android:text="( 5 )" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/point_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_straight"
+            app:layout_constraintTop_toBottomOf="@+id/star_all"
+            app:layout_constraintBottom_toBottomOf="@+id/myphoto"
+            tools:ignore="UseCompoundDrawables">
 
-    <LinearLayout
-        android:id="@+id/point_all"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline_straight"
-        app:layout_constraintTop_toBottomOf="@+id/star_all"
-        app:layout_constraintBottom_toBottomOf="@+id/myphoto"
-        tools:ignore="UseCompoundDrawables">
+            <TextView
+                android:id="@+id/point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 16200"
+                android:textSize="24sp"
+                app:drawableStartCompat="@drawable/coin" />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/point"
-            android:layout_width="wrap_content"
+            android:id="@+id/success"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text=" 16200"
-            android:textSize="24sp"
-            app:drawableStartCompat="@drawable/coin" />
-
-    </LinearLayout>
-
-
-
-    <TextView
-        android:id="@+id/success"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="12&#010;成功換取"
-        app:layout_constraintBottom_toBottomOf="@+id/fans"
-        app:layout_constraintEnd_toStartOf="@+id/fans"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fans" />
-
-    <TextView
-        android:id="@+id/fans"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="300&#010;粉絲"
-        app:layout_constraintLeft_toRightOf="@+id/success"
-        app:layout_constraintRight_toLeftOf="@id/follow"
-        app:layout_constraintTop_toBottomOf="@id/guideline1"
-        app:layout_constraintHorizontal_weight="1"/>
-
-    <TextView
-        android:id="@+id/follow"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="20&#010;關注中"
-        app:layout_constraintBottom_toBottomOf="@+id/fans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/fans"
-        app:layout_constraintTop_toTopOf="@+id/fans" />
-
-
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
-
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.575"
+            android:gravity="center"
+            android:text="12&#010;成功換取"
+            app:layout_constraintBottom_toBottomOf="@+id/fans"
+            app:layout_constraintEnd_toStartOf="@+id/fans"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guideline2" />
+            app:layout_constraintTop_toTopOf="@+id/fans" />
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/fans"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tab_layout"
+            android:gravity="center"
+            android:text="300&#010;粉絲"
+            app:layout_constraintLeft_toRightOf="@+id/success"
+            app:layout_constraintRight_toLeftOf="@id/follow"
+            app:layout_constraintTop_toBottomOf="@id/guideline1"
+            app:layout_constraintHorizontal_weight="1"/>
+
+        <TextView
+            android:id="@+id/follow"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="20&#010;關注中"
+            app:layout_constraintBottom_toBottomOf="@+id/fans"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/fans"
+            app:layout_constraintTop_toTopOf="@+id/fans" />
+
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.575"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tab_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+</ScrollView>
