@@ -13,15 +13,20 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodsharing.databinding.ActivityChatBinding;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseListOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -33,6 +38,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,15 +61,17 @@ public class ChatActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
 
     TextView title;
-    ImageView image,send;
+    ImageView image, send;
     EditText input;
-    RecyclerView msgList;
+    ListView msgList;
 
-    String ReceiverUid,ReceiverName,uId,nowDate,nowTime;
+    String ReceiverUid, ReceiverName, uId;
     Uri imageUri;
 
+    private FirebaseListAdapter<ChatMessage> adapter;
     FirebaseAuth mAuth;
-    Query queryP,queryU;
+    Query queryP, queryU;
+    String pId;
 
     DatabaseReference databaseReferenceM;
 
@@ -70,26 +79,41 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        getSharedPreferences("Msg",MODE_PRIVATE);
+        getSharedPreferences("Msg", MODE_PRIVATE);
 
 
         Intialize();
 
         //取得post ID
-        Intent intent = getIntent();
-        String pId = intent.getStringExtra(EXTRA_PID);
 
-        title = findViewById(R.id.pTitleTv);
-        image = findViewById(R.id.pImageIv);
-        msgList = findViewById(R.id.message);
-
-        binding = ActivityChatBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
 
         mAuth = FirebaseAuth.getInstance();
         uId = mAuth.getCurrentUser().getUid();
 
+        //Suppose you want to retrieve "chats" in your Firebase DB:
+        Query query = FirebaseDatabase.getInstance().getReference("Messages");
+        //The error said the constructor expected FirebaseListOptions - here you create them:
+        FirebaseListOptions<ChatMessage> options = new FirebaseListOptions.Builder<ChatMessage>()
+                .setQuery(query, ChatMessage.class)
+                .setLayout(R.layout.item_container_sent_message)
+                .build();
+
+        adapter = new FirebaseListAdapter<ChatMessage>(options) {
+            @Override
+            protected void populateView(@NonNull View v, @NonNull ChatMessage model, int position) {
+                TextView text = (TextView) v.findViewById(R.id.text_message);
+                TextView time = (TextView) v.findViewById(R.id.text_datetime);
+
+                String Otime = String.valueOf(model.getTime());
+                text.setText(model.getMessage());
+                Calendar calendar = Calendar.getInstance(Locale.getDefault());
+                calendar.setTimeInMillis(Long.parseLong(Otime));
+                String Ntime = DateFormat.format("HH:mm", calendar).toString();
+                time.setText(Ntime);
+            }
+        };
+        msgList.setAdapter(adapter);
 
         queryP = new server_post().getQuery(pId);
         queryP.addValueEventListener(new ValueEventListener() {
@@ -104,13 +128,12 @@ public class ChatActivity extends AppCompatActivity {
                     imageUri = Uri.parse(pImg);
                     try {
                         Picasso.get().load(imageUri).into(image);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         //射程預設照案
                         Picasso.get().load(R.drawable.ic_default_image).into(image);
                     }
                     title.setText(pTitle);
                     ReceiverUid = uId;
-
                 }
             }
 
@@ -123,7 +146,7 @@ public class ChatActivity extends AppCompatActivity {
         queryU.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()){
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     String uName = "" + ds.child("name").getValue();
                     ReceiverName = uName;
                 }
@@ -142,26 +165,46 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+
     }
-    List keyList;
+
     private void sendMsg() {
         String msg = input.getText().toString();
         String uid = mAuth.getCurrentUser().getUid();
-        long time = new Date().getTime();
 
+        if (TextUtils.isEmpty(msg)) {
 
-        if (TextUtils.isEmpty(msg)){
-            input.setText("dd");
-        }else {
-//            FirebaseDatabase.getInstance()
-//                    .getReference()
-//                    .push()
-//                    .setValue(new ChatMessage(msg,uid));
+        } else {
+            FirebaseDatabase.getInstance()
+                    .getReference("Messages")
+                    .push()
+                    .setValue(new ChatMessage(msg, uid, "ff"));
             input.setText("");
         }
     }
-    private void Intialize(){
+
+    private void Intialize() {
         send = findViewById(R.id.send);
         input = findViewById(R.id.input);
+
+        title = findViewById(R.id.pTitleTv);
+        image = findViewById(R.id.pImageIv);
+        msgList = findViewById(R.id.message);
+
+        Intent intent = getIntent();
+        pId = intent.getStringExtra(EXTRA_PID);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 }

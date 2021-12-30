@@ -38,7 +38,7 @@
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/auth/layout/activity_start.xml" value="0.2" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/buy_post_content.xml" value="0.22056159420289856" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/buy_requirelist01.xml" value="0.22056159420289856" />
-        <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/chat/layout/activity_chat.xml" value="0.21" />
+        <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/chat/layout/activity_chat.xml" value="0.2" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/chat/layout/activity_chatroom_list.xml" value="0.18" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/chat/layout/item_container_chatlist.xml" value="0.4" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/layout/chat/layout/item_container_received_message.xml" value="0.18" />
@@ -90,6 +90,9 @@
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1578125" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1578125" />
         <entry key="..\:/Users/g5468/AndroidStudioProjects/FoodSharing/app/src/main/res/mipmap-anydpi-v26/vtime.xml" value="0.2328125" />
+        <entry key="..\:/Users/g5468/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/activity_list_item.xml" value="0.1" />
+        <entry key="..\:/Users/g5468/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/list_content.xml" value="0.4" />
+        <entry key="..\:/Users/g5468/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/test_list_item.xml" value="0.1" />
       </map>
     </option>
   </component>

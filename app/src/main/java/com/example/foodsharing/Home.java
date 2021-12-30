@@ -108,8 +108,10 @@ public class Home extends Fragment implements AdapterPost.OnItemClickListener {
     @Override
     public void onItemClick(int postition) {
         Intent contentIntent = new Intent(getActivity(),FoodContent.class);
+        Intent chatIntent = new Intent(getActivity(),ChatActivity.class);
         Post clickItem = postList.get(postition);
         contentIntent.putExtra(EXTRA_PID,clickItem.getpId());
+        chatIntent.putExtra(EXTRA_PID,clickItem.getpId());
         startActivity(contentIntent);
     }
 }

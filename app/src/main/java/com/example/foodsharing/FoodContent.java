@@ -1,12 +1,14 @@
 package com.example.foodsharing;
 
 
+import static android.app.PendingIntent.FLAG_CANCEL_CURRENT;
 import static com.example.foodsharing.Home.EXTRA_PID;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,7 +43,7 @@ public class FoodContent extends AppCompatActivity {
     FirebaseAuth mAuth;
     Query queryP;
 
-    String uid;
+    String uid,pId;
     private Uri pImageUri,uImageUri;
 
     ImageView pImgIv,uImgIv;
@@ -63,17 +65,17 @@ public class FoodContent extends AppCompatActivity {
 
         //取得post ID
         Intent intent = getIntent();
-        String pId = intent.getStringExtra(EXTRA_PID);
+        pId = intent.getStringExtra(EXTRA_PID);
 
         setSupportActionBar(editToolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent chatIntent = new Intent(FoodContent.this,ChatActivity.class);
 
         iWant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chatIntent = new Intent(FoodContent.this,ChatActivity.class);
-                chatIntent.putExtra(EXTRA_PID,pId);
+
                 startActivity(chatIntent);
             }
         });
@@ -93,7 +95,8 @@ public class FoodContent extends AppCompatActivity {
                     String uName = "" + ds.child("uName").getValue()+" , ";
                     String uImg = "" + ds.child("uImage").getValue();
                     String postUid = "" +ds.child("uid").getValue();
-
+                    String pid = "" +ds.child("pId").getValue();
+                    chatIntent.putExtra(EXTRA_PID,pid);
                     pImageUri = Uri.parse(pImg);
                     try {
                         Picasso.get().load(pImageUri).into(pImgIv);
@@ -111,7 +114,7 @@ public class FoodContent extends AppCompatActivity {
                     //convert timestamp to dd/mm/yyyy hh:mm am/pm
                     Calendar calendar = Calendar.getInstance(Locale.getDefault());
                     calendar.setTimeInMillis(Long.parseLong(pTime));
-                    String time = DateFormat.format("yyyy/MM/dd aa hh"+"點"+"發布",calendar).toString();
+                    String time = DateFormat.format("yyyy/MM/dd  HH"+"點"+"發布",calendar).toString();
                     pTitleTv.setText(pTitle);
                     pDesTv.setText(pDes);
                     pTimeTv.setText(time);
