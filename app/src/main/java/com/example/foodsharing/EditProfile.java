@@ -36,6 +36,8 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
 
+import server.server_user;
+
 public class EditProfile extends AppCompatActivity {
 
     //firebase
@@ -43,6 +45,7 @@ public class EditProfile extends AppCompatActivity {
     FirebaseUser user;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    Query query;
 
     String storagePath = "Users_Profile_Imgs/";
 
@@ -65,8 +68,7 @@ public class EditProfile extends AppCompatActivity {
         //init firebase
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Users");
+
         storageReference = FirebaseStorage.getInstance().getReference().child("ProfilePic");
 
 
@@ -108,11 +110,11 @@ public class EditProfile extends AppCompatActivity {
 
 
         //顯示原始資料
-        Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
-        query.addValueEventListener(new ValueEventListener(){
+        query = new server_user().getQuery(user.getUid());
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()){
                     //get data
                     String name = ""+ds.child("name").getValue();
                     String email = ""+ds.child("email").getValue();

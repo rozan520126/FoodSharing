@@ -1,15 +1,18 @@
 package com.example.foodsharing;
 
 
+import static android.app.PendingIntent.FLAG_CANCEL_CURRENT;
 import static com.example.foodsharing.Home.EXTRA_PID;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -30,61 +33,59 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+import java.util.Locale;
+
+import models.Post;
+import server.server_post;
+
 public class FoodContent extends AppCompatActivity {
     FirebaseAuth mAuth;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    Query queryP;
 
-    String uid;
+    String uid,pId;
     private Uri pImageUri,uImageUri;
 
     ImageView pImgIv,uImgIv;
     TextView pTitleTv,pDesTv,uNameTv,pTimeTv,pLocTv;
     Button delete,message,iWant;
-    MenuView.ItemView edit;
+
+    Toolbar editToolbar;
 
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_content);
+        Intialize();
 
         //firebase
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Posts");
+
         //取得post ID
         Intent intent = getIntent();
-        String pId = intent.getStringExtra(EXTRA_PID);
-
-        pImgIv = findViewById(R.id.pImage);
-        pTitleTv = findViewById(R.id.pTitle);
-        pDesTv = findViewById(R.id.pDes);
-        pTimeTv = findViewById(R.id.pTime);
-        pLocTv = findViewById(R.id.pLoc);
-        uImgIv = findViewById(R.id.uImg);
-        uNameTv = findViewById(R.id.uName);
-
-        delete = findViewById(R.id.delete);
-        message = findViewById(R.id.message);
-        iWant = findViewById(R.id.iWant);
-
-       Toolbar editToolbar = findViewById(R.id.toolbar_edit);
-       edit = findViewById(R.id.action_edit);
+        pId = intent.getStringExtra(EXTRA_PID);
 
         setSupportActionBar(editToolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent chatIntent = new Intent(FoodContent.this,ChatActivity.class);
 
+        iWant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                startActivity(chatIntent);
+            }
+        });
 
         //取得post資料
-        Query query = databaseReference.orderByChild("pId").equalTo(pId);
-        query.addValueEventListener(new ValueEventListener() {
+        queryP = new server_post().getQuery(pId);
+        queryP.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     //get data
                     String pImg = "" + ds.child("pImage").getValue();
                     String pTitle = "" + ds.child("pTitle").getValue();
@@ -94,7 +95,8 @@ public class FoodContent extends AppCompatActivity {
                     String uName = "" + ds.child("uName").getValue()+" , ";
                     String uImg = "" + ds.child("uImage").getValue();
                     String postUid = "" +ds.child("uid").getValue();
-
+                    String pid = "" +ds.child("pId").getValue();
+                    chatIntent.putExtra(EXTRA_PID,pid);
                     pImageUri = Uri.parse(pImg);
                     try {
                         Picasso.get().load(pImageUri).into(pImgIv);
@@ -109,9 +111,13 @@ public class FoodContent extends AppCompatActivity {
                         //射程預設照案
                         Picasso.get().load(R.drawable.ic_default_image).into(pImgIv);
                     }
+                    //convert timestamp to dd/mm/yyyy hh:mm am/pm
+                    Calendar calendar = Calendar.getInstance(Locale.getDefault());
+                    calendar.setTimeInMillis(Long.parseLong(pTime));
+                    String time = DateFormat.format("yyyy/MM/dd  HH"+"點"+"發布",calendar).toString();
                     pTitleTv.setText(pTitle);
                     pDesTv.setText(pDes);
-                    pTimeTv.setText(pTime);
+                    pTimeTv.setText(time);
                     pLocTv.setText(pLoc);
                     uNameTv.setText(uName);
 
@@ -120,10 +126,14 @@ public class FoodContent extends AppCompatActivity {
                     }else {
                         delete.setVisibility(View.GONE);
                         message.setVisibility(View.GONE);
+                        iWant.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                startActivity(new Intent(FoodContent.this,ChatActivity.class));
+                            }
+                        });
                     }
                 }
-
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -146,6 +156,21 @@ public class FoodContent extends AppCompatActivity {
         return true;
     }
 
+    private void Intialize(){
+        pImgIv = findViewById(R.id.pImage);
+        pTitleTv = findViewById(R.id.pTitle);
+        pDesTv = findViewById(R.id.pDes);
+        pTimeTv = findViewById(R.id.pTime);
+        pLocTv = findViewById(R.id.pLoc);
+        uImgIv = findViewById(R.id.uImg);
+        uNameTv = findViewById(R.id.uName);
+
+        delete = findViewById(R.id.delete);
+        message = findViewById(R.id.message);
+        iWant = findViewById(R.id.iWant);
+
+        editToolbar = findViewById(R.id.toolbar_edit);
+    }
 
 
 

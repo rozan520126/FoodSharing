@@ -118,7 +118,6 @@ public class ProfileFragment extends Fragment {
                     nameTv.setText(name);
 //                    introTv.setText(intro);
 
-
                     try {
                         Glide.with(getActivity())
                                 .load(image)

@@ -123,25 +123,28 @@
         app:layout_constraintTop_toBottomOf="@id/button_request"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
+        android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:orientation="vertical"
         android:overScrollMode="never"
         android:padding="20dp"
+        android:divider="@null"
 
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@+id/view_background"
-        app:layout_constraintTop_toBottomOf="@id/view_supporter"/>
+        app:layout_constraintTop_toBottomOf="@id/view_supporter"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
-    <ProgressBar
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        app:layout_constraintStart_toStartOf="@+id/view_background"
-        app:layout_constraintEnd_toEndOf="@+id/view_background"
-        app:layout_constraintTop_toTopOf="@+id/view_background"
-        app:layout_constraintBottom_toBottomOf="@+id/view_background"/>
+<!--    <ProgressBar-->
+<!--        android:layout_width="25dp"-->
+<!--        android:layout_height="25dp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/view_background"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/view_background"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/view_background"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/view_background"/>-->
 
     <FrameLayout
         android:id="@+id/layout_send"
@@ -154,16 +157,18 @@
         android:background="@drawable/background_chat_input">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
             android:padding="8dp"
             android:src="@drawable/ic_send"
-            android:tint="@color/black"/>
+            android:tint="@color/black" />
 
     </FrameLayout>
 
     <EditText
+        android:id="@+id/input"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"

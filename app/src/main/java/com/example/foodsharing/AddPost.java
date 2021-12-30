@@ -56,11 +56,12 @@ import adapters.AdapterPhoto;
 import gun0912.tedbottompicker.TedBottomPicker;
 import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
+import server.server_post;
 
 public class AddPost extends AppCompatActivity {
 
 
-    FirebaseAuth firebaseAuth;
+    FirebaseAuth mAuth;
     DatabaseReference userDbRef;
 
     private static final int CAMERA_REQUEST_CODE = 100;
@@ -75,6 +76,7 @@ public class AddPost extends AppCompatActivity {
     EditText titleEt, desEt, daytimeEt, locationEt;
     ImageView imageIv;
     Button uploadBtn;
+    Toolbar myToolbar;
 
 //    private RecyclerView rcvPhoto;
 //    private AdapterPhoto photoAdapter;
@@ -82,12 +84,8 @@ public class AddPost extends AppCompatActivity {
     private Spinner timeSpinner;
     private ArrayAdapter timeArrayAdapter;
 
-
-
-
-
     //user info
-    String uid,uName,uImage ,email;
+    String uid,uName,uImage,email;
 
     Uri image_uri = null;
 
@@ -98,9 +96,7 @@ public class AddPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
-
-        //Toolbar
-        Toolbar myToolbar = findViewById(R.id.toolbar_back);
+        Intialize();
 
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle("新增詳細資料");
@@ -112,7 +108,7 @@ public class AddPost extends AppCompatActivity {
 
         pd = new ProgressDialog(this);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         checkUserStatus();
 
         //取得會員資料
@@ -132,22 +128,12 @@ public class AddPost extends AppCompatActivity {
             }
         });
 
-        titleEt = (EditText) findViewById(R.id.pTitleEt);
-        desEt = (EditText)findViewById(R.id.pDescription);
-        daytimeEt = (EditText)findViewById(R.id.pTime);
-        locationEt = (EditText)findViewById(R.id.pLocation);
-        imageIv = (ImageView) findViewById(R.id.pImageIv);
-        uploadBtn = (Button) findViewById(R.id.pUploadBtn);
-
-
 //        photoAdapter = new AdapterPhoto(AddPost.this);
 //        rcvPhoto = (RecyclerView) findViewById(R.id.rcvPhoto);
 //        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
 //        rcvPhoto.setLayoutManager(linearLayoutManager);
 //        rcvPhoto.setFocusable(false);
 //        rcvPhoto.setAdapter(photoAdapter);
-
-
 
         imageIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -468,7 +454,7 @@ public class AddPost extends AppCompatActivity {
 //    }
 
     private void checkUserStatus(){
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
             email = user.getEmail();
             uid = user.getUid();
@@ -476,6 +462,15 @@ public class AddPost extends AppCompatActivity {
             startActivity(new Intent(this,Login.class));
             finish();
         }
+    }
+    private void Intialize(){
+        titleEt = (EditText) findViewById(R.id.pTitleEt);
+        desEt = (EditText)findViewById(R.id.pDescription);
+        daytimeEt = (EditText)findViewById(R.id.pTime);
+        locationEt = (EditText)findViewById(R.id.pLocation);
+        imageIv = (ImageView) findViewById(R.id.pImageIv);
+        uploadBtn = (Button) findViewById(R.id.pUploadBtn);
+        myToolbar = findViewById(R.id.toolbar_back);
     }
 
 
